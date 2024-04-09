@@ -4,7 +4,11 @@ Journey through the semantic world as it's mapped by AI language models. This in
 
 ## Screenshots
 
+### Puzzle and options
+
 ![Puzzle and options](img/screen1.png)
+
+### Results
 
 ![Results](img/screen2.png)
 
@@ -18,20 +22,20 @@ Journey through the semantic world as it's mapped by AI language models. This in
 
 Clone the repo
 
-git clone https://github.com/OdinMB/semantic-spaces-game.git
+    git clone https://github.com/OdinMB/semantic-spaces-game.git
 
 Navigate to the game's directory:
 
-cd semantic-puzzle-game
+    cd semantic-puzzle-game
 
 Install the required Python packages:
 
-pip install -r requirements.txt
+    pip install -r requirements.txt
 
 Launch the game
 
-streamlit run app.py
+    streamlit run app.py
 
 ## License
 
-"Semantic Spaces" by Odin Mühlenbein is published under CC-BY 4.0 license.
+"Semantic Spaces" by Odin Mühlenbein is published under a CC-BY 4.0 license.
