@@ -4,6 +4,7 @@ import random
 from scipy.spatial.distance import cdist
 from visualization import visualize_embeddings, visualize_target_circle
 from config import file_name
+from template import hide_menus
 
 # Load the embeddings dictionary
 embeddings_dict = np.load(f"{file_name}.npy", allow_pickle=True).item()
@@ -18,16 +19,37 @@ def get_embedding(term):
 def calculate_distance(target_vector, option_embedding):
     return cdist(target_vector.reshape(1, -1), option_embedding.reshape(1, -1), 'cosine')[0][0]
 
+def choose_riddle(riddles_data):
+    # Filter riddles that haven't been attempted
+    unattempted_riddles = [r for i, r in enumerate(riddles_data) if i not in st.session_state.attempted_riddles]
+    
+    # Check if there are any unattempted riddles left
+    if unattempted_riddles:
+        # Randomly select from unattempted riddles
+        chosen_riddle = random.choice(unattempted_riddles)
+        chosen_index = riddles_data.index(chosen_riddle)
+        
+        # Update session state with chosen riddle
+        st.session_state.riddle_data = chosen_riddle
+        st.session_state.riddle = chosen_riddle[:3]
+        st.session_state.options = chosen_riddle[3:]
+        st.session_state.choice_made = False
+        
+        # Record this riddle as attempted
+        st.session_state.attempted_riddles.append(chosen_index)
+    else:
+        st.warning("You've attempted all available puzzles! Resetting...")
+        st.session_state.attempted_riddles = []  # Reset attempted riddles
+    st.rerun()
+
 def app():
-    st.title("Semantic Spaces")
-    expander = st.expander("How does this work?")
-    expander.write("""\
-        Semantic distance measures how closely related two words are in meaning — like how 'coffee' naturally pairs with 'morning', or 'stars' with 'night'.
-        But there's more: semantic direction navigates the nuanced paths between words. For instance, 'bark' moves in one direction to align with 'tree', and in another, entirely different direction towards 'dog'.
-        This game delves into these intricate connections — not as mapped by human intuition but as charted by AI language models.
-        As you explore, remember: the AI's interpretation of semantic relationships can often surprise or seem alien to us.
-        Can you trace a semantic path like an AI language model? Let's find out!
-    """)
+    st.set_page_config(
+        page_title="Semantic Spaces",
+        page_icon="🤯",
+    )
+    hide_menus()
+
+    st.markdown("<h1 style='text-align: center'>Semantic Spaces</h1>", unsafe_allow_html=True)
 
     if 'attempted_riddles' not in st.session_state:
         st.session_state.attempted_riddles = []
@@ -35,36 +57,17 @@ def app():
     with open(f"{file_name}.txt", "r") as file:
         riddles_data = [line.strip().split(';') for line in file.readlines()]
 
-    if st.button("New puzzle") or 'riddle_data' not in st.session_state:
-        # Filter riddles that haven't been attempted
-        unattempted_riddles = [r for i, r in enumerate(riddles_data) if i not in st.session_state.attempted_riddles]
-        
-        # Check if there are any unattempted riddles left
-        if unattempted_riddles:
-            # Randomly select from unattempted riddles
-            chosen_riddle = random.choice(unattempted_riddles)
-            chosen_index = riddles_data.index(chosen_riddle)
-            
-            # Update session state with chosen riddle
-            st.session_state.riddle_data = chosen_riddle
-            st.session_state.riddle = chosen_riddle[:3]
-            st.session_state.options = chosen_riddle[3:]
-            st.session_state.choice_made = False
-            
-            # Record this riddle as attempted
-            st.session_state.attempted_riddles.append(chosen_index)
-        else:
-            st.warning("You've attempted all available puzzles! Resetting...")
-            st.session_state.attempted_riddles = []  # Reset attempted riddles
+    if 'riddle_data' not in st.session_state:
+        choose_riddle(riddles_data)
 
     word1, word2, word3 = st.session_state.riddle
     options = st.session_state.options
 
     st.markdown(f"""
     <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'>
-        The semantic distance between <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> and 
+        The semantic path from <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> to 
         <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> is similar to<BR />
-        the semantic distance between <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> and 
+        the semantic path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
         <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span> ?
     </div>
     """, unsafe_allow_html=True)
@@ -103,6 +106,15 @@ def app():
         distances = [(option, calculate_distance(target_vector, get_embedding(option))) for option in options]
         sorted_options = sorted(distances, key=lambda x: x[1])
 
+        fig_target_circle = visualize_target_circle(sorted_options, st.session_state.choice)
+        # Using columns to control plot width
+        col1, col2, col3 = st.columns([1, 4, 1])
+        with col2:
+            st.pyplot(fig_target_circle)
+
+        if st.button("Next puzzle"):
+            choose_riddle(riddles_data)
+
         # Display the sorted options
         # st.markdown("### Result")
         # for term, dist in sorted_options:
@@ -111,9 +123,6 @@ def app():
         #     else:
         #         st.markdown(f"{term} (distance: {dist:.2f})")
 
-        # After calculating distances and sorting options
-        fig_target_circle = visualize_target_circle(sorted_options, st.session_state.choice)
-        st.pyplot(fig_target_circle)
 
         # Embeddings visualization in 2D map
         # fig = visualize_embeddings(get_embedding, [word1, word2, word3], options, st.session_state.choice, target_vector, 2)
