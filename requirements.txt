@@ -8,11 +8,4 @@ matplotlib
 scikit-learn
 
 tqdm
-
 langchain-openai
-
-fasttext
-gensim
-
-transformers
-torch
