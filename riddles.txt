@@ -1,0 +1,7 @@
+Batman;Robin;fried egg;omelette;egg cup;egg timer;french toast;serving platter;salt
+Japan;Germany;sushi;bratwurst;schnitzel;beer;pretzel;marzipan;autobahn
+baron;king;squirrel;wolf;oak tree;fox;panther;Forest Guardian;stag
+cake;spoiled cherry;children's birthday party;bouncy castle blowout;pinata miss;firework fiasco;clown nightmare;clumsy magician;out-of-tune singing
+water;ice;Austrians;Germans;Norwegians;Arnold Schwarzenegger;Alps;Gustav Klimt;coffee house
+salad;stew;fairy;leprechaun;witch;nymph;dragon;dryad;will-o'-the-wisp
+burglary;prison;investment banking;mansion;yacht;lawsuit;office;compliance department;bankruptcy proceedings
