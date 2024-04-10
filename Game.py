@@ -4,7 +4,7 @@ import random
 from scipy.spatial.distance import cdist
 from visualization import visualize_embeddings, visualize_target_circle
 from config import file_name
-from template import hide_menus
+from template import prepare_page
 
 # Load the embeddings dictionary
 embeddings_dict = np.load(f"{file_name}.npy", allow_pickle=True).item()
@@ -47,7 +47,7 @@ def app():
         page_title="Semantic Spaces",
         page_icon="🤯",
     )
-    hide_menus()
+    prepare_page()
 
     st.markdown("<h1 style='text-align: center'>Semantic Spaces</h1>", unsafe_allow_html=True)
 

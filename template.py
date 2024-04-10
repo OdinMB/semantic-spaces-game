@@ -1,6 +1,6 @@
 import streamlit as st
 
-def hide_menus():
+def prepare_page():
     st.markdown("""
         <style>
             .block-container {
