@@ -117,9 +117,9 @@ def app():
         sorted_options = sorted(distances, key=lambda x: x[1])
 
         # Using columns to control plot width
-        col1, col2, col3 = st.columns([1, 4, 1])
-        with col2:
-            visualize_target_circle(sorted_options, st.session_state.choice)
+        # col1, col2, col3 = st.columns([1, 4, 1])
+        # with col2:
+        visualize_target_circle(sorted_options, st.session_state.choice)
 
         if st.button("Next puzzle"):
             choose_riddle(riddles_data)
