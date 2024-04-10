@@ -14,7 +14,7 @@ with cent_co:
 
 st.markdown("""\
 Semantic distance measures how closely related two words are in meaning — like how 'coffee' naturally pairs with 'morning', or 'stars' with 'night'.
-There's also direction. Which in the case of meaning can go through a lot of different dimensions. For instance, we can think of the semantic path from 'baron' to 'king' as moving through a nobility dimension, and that from 'water' to 'ice' as moving through a temperature and a state-of-matter dimension.
+There's also direction. Which in the case of meaning can go through a lot of different dimensions. For instance, we can think of the semantic path from 'baron' to 'king' as moving through a nobility dimension, and that from 'water' to 'ice' as moving through a temperature and state-of-matter dimension.
 This game asks you to follow these semantic pathways not as you intuitively understand them as a human, but as they are encoded in AI language models.
 Can you trace a semantic path like an AI language model? Let's find out!
 

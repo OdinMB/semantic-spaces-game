@@ -1,9 +1,9 @@
 # Semantic Spaces
 
-Online available at https://semantic-spaces.onrender.com/.
-(Please allow for 50 seconds loading time. I'm using a free hosting service.)
+Dive into the depths of semantic pathways as perceived by cutting-edge AI.
 
-Journey through the semantic world as it's mapped by AI language models. This interactive game challenges you to explore the nuanced connections between words, diving into the depths of semantic distance and direction as perceived by cutting-edge AI.
+Online available at https://semantic-spaces.onrender.com/.
+(Please allow for 50 seconds loading time - the downside of using a free hosting service.)
 
 ## Screenshots
 
@@ -39,15 +39,17 @@ Launch the game
 
     streamlit run Game.py
 
-### Developing new riddles
+## Creating new riddles
+
+### Convention
 
 Riddles are stored in the `riddles.txt` file, with one riddle in each line. The first three terms of each line are the ones showing up in the riddle statement. The six following ones are the options that the player can choose from. Terms are separated by ';'.
 
-"Japan is to Germany as sushi is to **\_**" is stored like this:
+"Japan is to Germany as sushi is to **\_\_\_\_\_**" is stored like this:
 
     Japan;Germany;sushi;bratwurst;schnitzel;beer;pretzel;marzipan;autobahn
 
-To create new riddles, follow these steps:
+### Process
 
 **Set up creation mode** (one time)
 
@@ -71,7 +73,7 @@ To create new riddles, follow these steps:
 10. In the `config.py` file, change `file_name` back to `riddles`.
 11. Run `python create_embeddings_openai.py` to update the `riddles.npy` file with the new embeddings.
 
-### Deployment
+## Deployment
 
 Streamlit needs to be deployed in headless mode. Do one of these:
 
