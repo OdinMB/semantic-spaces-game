@@ -2,56 +2,83 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
+import streamlit_highcharts as hct
+import streamlit as st
 
 def visualize_target_circle(options_distances, chosen_option):
-    fig, ax = plt.subplots(figsize=(6, 6))
+    series_data = []
 
-    # Obtain distances from the second closest to the furthest option
-    closest_dist = options_distances[0][1]
-    furthest_dist = options_distances[-1][1]
+    # Assuming the first option is the closest and should be at the center
+    closest_dist = options_distances[0][1]  # This should ideally be 0 or the smallest value
+    max_distance = max(dist for _, dist in options_distances if dist > closest_dist)
 
-    # Define visual bounds
-    inner_visual_bound = 0.1  # Offset for the closest option for better visibility
-    outer_visual_bound = 0.8  # Middle of the outer ring, leaving space to the bounds
+    # Calculate angle increment to distribute options evenly around the circle
+    angle_increment = 360 / (len(options_distances)-1)
 
-    # Calculate visual distances scaling
-    scale_factor = (outer_visual_bound - inner_visual_bound) / (furthest_dist - closest_dist)
-
-    # Calculate angles for options, excluding the closest to avoid clustering at the center
-    angle_increment = 2 * np.pi / (len(options_distances) - 1)
-    angles = [angle_increment * i for i in range(1, len(options_distances))]  # Start from 1 to exclude closest
-
-    # Process options for visual placement
     for i, (option_label, dist) in enumerate(options_distances):
-        if i == 0:  # Closest option placed at the center
-            x, y = 0, 0
-        else:
-            visual_dist = inner_visual_bound + (dist - closest_dist) * scale_factor
-            angle = angles[i-1]  # Corrected indexing for angle
-            x = visual_dist * np.cos(angle)
-            y = visual_dist * np.sin(angle)
+        angle = i * angle_increment
+        # For the closest option (ideally with distance 0), set it at the center
+        # Scale other distances relative to the maximum, excluding the closest if it's truly at 0
+        scaled_dist = (dist - closest_dist) / (max_distance - closest_dist) * 100 if max_distance > closest_dist else 0
 
-        # Distinguish the chosen option
-        color = 'red' if option_label == chosen_option else 'grey'
-        dot_size = 500 if option_label == chosen_option else 350
-        label_offset = 0.1  # Additional space between dot and label for clarity
-        font_size = 14
+        series_data.append({
+            'name': option_label,
+            'x': angle,
+            'y': scaled_dist,
+            'z': dist, # abusing the z property to store cosine distance
+            'color': 'red' if option_label == chosen_option else 'grey',
+            'marker': {
+                'radius': 16 if option_label == chosen_option else 14,
+            },
+            'dataLabels': {
+                'enabled': True,
+                'format': option_label,
+                'style': {
+                    'fontSize': '16px'  # Larger font for readability
+                },
+                "allowOverlap": True,  # Highcharts will try to avoid label overlap but it's not always effective
+                "distance": 35,  # Adjust distance to help with positioning
+                "backgroundColor": "white" if i == 0 else None,
+                "padding": 0,  # Padding around the text
+                "zIndex": 10 if i == 0 else 6,
+            }
+        })
 
-        ax.scatter(x, y, color=color, s=dot_size, zorder=3)  # zorder for layering
-        ax.text(x, y - label_offset, option_label, color=color, ha='center', va='center', fontsize=font_size, zorder=4)
+    chart_config = {
+        "chart": {
+            "polar": True,
+            "type": 'scatter',
+            "backgroundColor": 'white'
+        },
+        "title": {"text": None},
+        "tooltip": {
+            "enabled": True,
+            "pointFormat": "<b>{point.name}</b><br />closest to furthest option: {point.y:.0f}%<br />cosine distance: {point.z:.2f}",
+            "headerFormat": None,
+        },
+        "pane": {"startAngle": 0, "endAngle": 360},
+        "xAxis": {
+            "tickInterval": 45,
+            "min": 0,
+            "max": 360,
+            "labels": {"enabled": False}
+        },
+        "yAxis": {
+            "min": 0,
+            "max": 100,
+            "labels": {"enabled": False},
+            "gridLineInterpolation": "circle",
+            "lineWidth": 0,
+            "gridLineColor": "#CCCCCC"
+        },
+        "legend": {"enabled": False},
+        "series": [{"name": "Options", "data": series_data, "pointPlacement": "on"}]
+    }
 
-    # Draw concentric circles for reference, with spacing to the image bounds
-    for r in np.linspace(0, outer_visual_bound, 5):
-        ax.add_patch(plt.Circle((0, 0), r, color='black', fill=False, linewidth=0.5, alpha=0.2, zorder=2))
+    hct.streamlit_highcharts(chart_config)
 
-    ax.set_aspect('equal', 'box')
-    ax.set_xlim(-1, 1)
-    ax.set_ylim(-1, 1)
-    ax.axis('off')
 
-    plt.close()
 
-    return fig
 
 
 

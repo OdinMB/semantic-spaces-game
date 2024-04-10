@@ -1,11 +1,10 @@
-Batman;Robin;fried egg;serving platter;salt;french toast;egg timer;omelette;egg cup
 Japan;Germany;sushi;beer;schnitzel;pretzel;marzipan;bratwurst;autobahn
 baron;king;squirrel;fox;wolf;stag;Forest Guardian;panther;oak tree
 cake;spoiled cherry;children's birthday party;clown nightmare;clumsy magician;out-of-tune singing;pinata miss;bouncy castle blowout;firework fiasco
 water;ice;Austrians;Germans;Gustav Klimt;Arnold Schwarzenegger;coffee house;Norwegians;Alps
 salad;stew;fairy;leprechaun;witch;dryad;will-o'-the-wisp;dragon;nymph
-burglary;prison;investment banking;mansion;lawsuit;bankruptcy proceedings;office;compliance department;yacht
-city;forest;taxi;ferry;rollerblades;bicycle;horse;walking;sled
-seed;tree;lie;legacy;fight;reckoning;scandal;belief;speculation
-bee;cockroach;teacher;investment banker;lobbyist;clickbait content creator;fake product reviewer;warlord;telemarketer
-fly;walk;backpacking world tour;cooking class;luxury safari;cruise ship vacation;guided bus tour;beach holiday;yoga retreat
+fledgling;nest;investment banker;prison;office;golf course;hell;tax haven;mansion
+bee;cockroach;teacher;management consultant;lobbyist;clickbait content creator;fake product reviewer;warlord;telemarketer
+;;lame vacation;guided bus tour;cruise ship vacation;yoga retreat;cooking class;luxury safari;beach holiday
+;;a man's job;nurse;lawyer;builder;programmer;receptionist;kindergarten teacher
+;;a woman's job;nurse;lawyer;builder;programmer;receptionist;kindergarten teacher

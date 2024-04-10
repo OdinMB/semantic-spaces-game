@@ -46,11 +46,17 @@ Launch the game
 
 ### Convention
 
-Riddles are stored in the `riddles.txt` file, with one riddle in each line. The first three terms of each line are the ones showing up in the riddle statement. The six following ones are the options that the player can choose from. Terms are separated by ';'.
+Riddles are stored in the `riddles.txt` file, with one riddle in each line. For semantic pathway riddles, the first three terms of each line are the ones showing up in the riddle statement. The six following ones are the options that the player can choose from. Terms are separated by ';'.
 
-"Japan is to Germany as sushi is to **\_\_\_\_\_**" is stored like this:
+"**Japan** is to **Germany** as **sushi** is to **\_\_\_\_\_**" is stored like this:
 
     Japan;Germany;sushi;bratwurst;schnitzel;beer;pretzel;marzipan;autobahn
+
+For semantic distance riddles, leave the first two terms empty.
+
+"**Lame vacation** is semantically closest to **\_\_\_\_\_**" is stored like this:
+
+    ;;lame vacation;guided bus tour;cruise ship vacation;etc.
 
 ### Process
 

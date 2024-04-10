@@ -6,6 +6,7 @@ scipy
 
 matplotlib
 scikit-learn
+streamlit-highcharts
 
 tqdm
 langchain-openai

@@ -10,11 +10,13 @@ from template import prepare_page
 embeddings_dict = np.load(f"{file_name}.npy", allow_pickle=True).item()
 
 def get_embedding(term):
-    embedding = embeddings_dict.get(term.strip(), None)
-    if embedding is not None:
-        return np.array(embedding)
-    else:
+    term = term.strip()
+    if term == "":
         return np.zeros((1536,))
+    embedding = embeddings_dict.get(term, None)
+    if embedding is None:
+        return np.zeros((1536,))
+    return np.array(embedding)
 
 def calculate_distance(target_vector, option_embedding):
     return cdist(target_vector.reshape(1, -1), option_embedding.reshape(1, -1), 'cosine')[0][0]
@@ -42,6 +44,47 @@ def choose_riddle(riddles_data):
         st.session_state.attempted_riddles = []  # Reset attempted riddles
     st.rerun()
 
+def display_riddle(word1, word2, word3):
+    if word1.strip() == "":
+        # Semantic distance riddle
+        # Make the first letter of word3 uppercase
+        word3 = word3[0].upper() + word3[1:]
+        st.markdown(f"""
+        <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'><span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> 
+        is semantically closest to <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        # Semantic path riddle
+        st.markdown(f"""
+        <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'>
+            The semantic path from <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> to 
+            <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> is most similar to<BR />
+            the semantic path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
+            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span> .
+        </div>
+        """, unsafe_allow_html=True)
+
+def display_options(options):
+    # Determine the total number of rows needed
+    total_options = len(options)
+    rows_needed = (total_options + 2) // 3  # +2 for rounding up in integer division
+
+    for row in range(rows_needed):
+        # Each row will have up to three columns for buttons
+        cols = st.columns(3)
+        
+        for i in range(3):
+            option_index = row * 3 + i
+            if option_index < total_options:  # Check to not exceed the list index
+                option = options[option_index]
+                with cols[i]:  # Place the button in the ith column of the current row
+                    button_key = f"option_{option_index}"  # Unique key for each button
+                    if st.button(option, key=button_key):
+                        st.session_state['choice'] = option
+                        st.session_state['choice_made'] = True
+                        st.rerun()
+
 def app():
     st.set_page_config(
         page_title="Semantic Spaces",
@@ -63,54 +106,20 @@ def app():
     word1, word2, word3 = st.session_state.riddle
     options = st.session_state.options
 
-    st.markdown(f"""
-    <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'>
-        The semantic path from <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> to 
-        <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> is similar to<BR />
-        the semantic path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
-        <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span> ?
-    </div>
-    """, unsafe_allow_html=True)
-
-    st.markdown("""
-    <style>
-    .stButton>button {
-        width: 100%;
-        border-radius: 20px;  # Optional: Adjusts the button's border-radius
-    }
-    </style>""", unsafe_allow_html=True)
-
+    display_riddle(word1, word2, word3)
+    
     if not st.session_state.get('choice_made', False):
-        # Determine the total number of rows needed
-        total_options = len(options)
-        rows_needed = (total_options + 2) // 3  # +2 for rounding up in integer division
-
-        for row in range(rows_needed):
-            # Each row will have up to three columns for buttons
-            cols = st.columns(3)
-            
-            for i in range(3):
-                option_index = row * 3 + i
-                if option_index < total_options:  # Check to not exceed the list index
-                    option = options[option_index]
-                    with cols[i]:  # Place the button in the ith column of the current row
-                        button_key = f"option_{option_index}"  # Unique key for each button
-                        if st.button(option, key=button_key):
-                            st.session_state['choice'] = option
-                            st.session_state['choice_made'] = True
-                            st.rerun()
-
+        display_options(options)
 
     if st.session_state.choice_made:
         target_vector = get_embedding(word3) + get_embedding(word2) - get_embedding(word1)
         distances = [(option, calculate_distance(target_vector, get_embedding(option))) for option in options]
         sorted_options = sorted(distances, key=lambda x: x[1])
 
-        fig_target_circle = visualize_target_circle(sorted_options, st.session_state.choice)
         # Using columns to control plot width
         col1, col2, col3 = st.columns([1, 4, 1])
         with col2:
-            st.pyplot(fig_target_circle)
+            visualize_target_circle(sorted_options, st.session_state.choice)
 
         if st.button("Next puzzle"):
             choose_riddle(riddles_data)
