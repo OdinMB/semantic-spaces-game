@@ -9,7 +9,7 @@ prepare_page()
 
 left_co, cent_co,last_co = st.columns([1, 3, 1])
 with cent_co:
-    st.image("img/labyrinth.jpg", width=400)
+    st.image("img/labyrinth.jpg")
     st.markdown("<h1 style='text-align: center'>License</h1>", unsafe_allow_html=True)
 
 st.markdown("""

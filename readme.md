@@ -2,8 +2,11 @@
 
 Dive into the depths of semantic pathways as perceived by cutting-edge AI.
 
-Online available at https://semantic-spaces.onrender.com/.
-(Please allow for 50 seconds loading time - the downside of using a free hosting service.)
+## Online version
+
+https://semantic-spaces.onrender.com/.
+
+Please allow for 50 seconds loading time (the downside of using a free hosting service).
 
 ## Screenshots
 
@@ -29,7 +32,7 @@ Clone the repo
 
 Navigate to the game's directory:
 
-    cd semantic-puzzle-game
+    cd semantic-spaces-game
 
 Install the required Python packages:
 

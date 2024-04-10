@@ -9,7 +9,7 @@ prepare_page()
 
 left_co, cent_co,last_co = st.columns([1, 3, 1])
 with cent_co:
-    st.image("img/labyrinth.jpg", width=400)
+    st.image("img/labyrinth.jpg")
     st.markdown("<h1 style='text-align: center'>Learn about AI</h1>", unsafe_allow_html=True)
 
 st.markdown("""\
@@ -34,5 +34,5 @@ It also claims that <span style='background-color: #FFFF00; padding: 0 3px; marg
 <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span>.
 </p>
 
-<p style='font-size: 20px;'>If you watched the video, you'll know that these are absolutely objective assessments by a state-of-the-art AI language model. Please send any complaints to OpenAI.</p>
+<p style='font-size: 20px;'>If you watched the video, you'll know that these are not my personal opinions. They are absolutely objective assessments by a state-of-the-art AI language model. 😉 Please send any complaints to OpenAI.</p>
 """, unsafe_allow_html=True)

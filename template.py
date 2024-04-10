@@ -4,7 +4,7 @@ def prepare_page():
     st.markdown("""
         <style>
             .block-container {
-                margin-top: -2em;
+                margin-top: -4em;
             }
             #MainMenu {visibility: hidden;}
             .stDeployButton {display:none;}
