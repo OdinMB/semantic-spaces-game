@@ -11,9 +11,14 @@ def prepare_page():
             footer {visibility: hidden;}
             #stDecoration {display:none;}
 
+            [data-testid="stSidebar"][aria-expanded="true"]{
+                min-width: 275px;
+                max-width: 275px;
+            }
+                
             .stButton>button {
                 width: 100%;
-                border-radius: 20px;  # Optional: Adjusts the button's border-radius
+                border-radius: 20px;
             }
             @media screen and (max-width: 767px) {
                 .hide-on-mobile {
@@ -29,4 +34,5 @@ def prepare_page():
 
     st.sidebar.info("No cookies, no tracking, no ads. Just fun with language.")
     st.sidebar.info("'Semantic Spaces' by Odin Mühlenbein is published under a [CC-BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).")
-    st.sidebar.info("""Contributions are welcome! Please visit the [GitHub](https://github.com/OdinMB/semantic-spaces-game) repository.""")
+    st.sidebar.info("""Contributions are welcome! Please visit the [GitHub](https://github.com/OdinMB/semantic-spaces-game) repo.""")
+

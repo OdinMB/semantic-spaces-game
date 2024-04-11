@@ -22,14 +22,14 @@ with cent_co:
     st.markdown("<h1 style='text-align: center'>Disclaimer</h1>", unsafe_allow_html=True)
 
 st.markdown(f"""\
-<p style='font-size: 20px;'>This game claims that <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>bee</span> is to 
-<span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>cockroach</span> as 
+<p style='font-size: 20px;'>This game claims that <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>bee</span> is to 
+<span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>cockroach</span> as 
 <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>teacher</span> is to
 <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>lobbyist</span>.
 </p>                    
 <p style='font-size: 20px;'>
-It also claims that <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> is to 
-<span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> as 
+It also claims that <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> is to 
+<span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> as 
 <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> is to
 <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span>.
 </p>
