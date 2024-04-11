@@ -47,7 +47,7 @@ def visualize_target_circle(options_distances, chosen_option):
             "backgroundColor": 'white',
             "margin": [0, 0, 0, 0],
             # "width": 400,
-            "height": 400
+            # "height": 400
         },
         "title": {"text": None},
         "responsive": {
@@ -58,8 +58,17 @@ def visualize_target_circle(options_distances, chosen_option):
                 },
                 "chartOptions": {
                     "chart": {
-                        "width": 300,
-                        "height": 300,
+                        "width": 250,
+                        "height": 250,
+                    }
+                }
+            }, {
+                "condition": {
+                    "minWdith": 601,
+                },
+                "chartOptions": {
+                    "chart": {
+                        "height": 400,
                     }
                 }
             }]
