@@ -1,7 +1,9 @@
 import numpy as np
 from langchain_openai import OpenAIEmbeddings
 from tqdm import tqdm
-from config import file_name
+
+from config import get_file_name
+file_name = get_file_name()
 
 import os
 from dotenv import load_dotenv

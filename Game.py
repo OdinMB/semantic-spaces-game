@@ -3,9 +3,10 @@ import numpy as np
 import random
 from scipy.spatial.distance import cdist
 from visualization import visualize_embeddings, visualize_target_circle
-from config import file_name
+from config import get_file_name
 from template import prepare_page
 
+file_name = get_file_name()
 # Load the embeddings dictionary
 embeddings_dict = np.load(f"{file_name}.npy", allow_pickle=True).item()
 
@@ -121,22 +122,19 @@ def app():
         distances = [(option, calculate_distance(target_vector, get_embedding(option))) for option in options]
         sorted_options = sorted(distances, key=lambda x: x[1])
 
-        # Using columns to control plot width
-        # col1, col2, col3 = st.columns([1, 4, 1])
-        # with col2:
         visualize_target_circle(sorted_options, st.session_state.choice)
 
         if st.button("Next puzzle"):
             choose_riddle(riddles_data)
 
-        # Display the sorted options
-        # st.markdown("### Result")
-        # for term, dist in sorted_options:
-        #     if term == st.session_state.choice:
-        #         st.markdown(f"**{term} (distance: {dist:.2f})** :star:")  # Highlight player's choice
-        #     else:
-        #         st.markdown(f"{term} (distance: {dist:.2f})")
-
+        # If in riddle creation mode: display the sorted options
+        if file_name == "riddles_wip":
+            st.markdown("### Result")
+            for term, dist in sorted_options:
+                if term == st.session_state.choice:
+                    st.markdown(f"**{term} (distance: {dist:.2f})** :star:")  # Highlight player's choice
+                else:
+                    st.markdown(f"{term} (distance: {dist:.2f})")
 
         # Embeddings visualization in 2D map
         # fig = visualize_embeddings(get_embedding, [word1, word2, word3], options, st.session_state.choice, target_vector, 2)

@@ -60,27 +60,27 @@ For semantic distance riddles, leave the first two terms empty.
 
 ### Process
 
-**Set up creation mode** (one time)
+**Set up creation mode** (once)
 
 1. Create a `.env` file with this entry: `OPENAI_API_KEY=your-api-key`.
 2. Create a `riddles_wip.txt` file.
 
 **Activate creation mode**
 
-3. In the `config.py` file, change `file_name` to `riddles_wip`. This tells the game and the create_embeddings script to refer to the new riddles file.
+If the `riddles_wip.txt` file exists and is not empty, you have entered riddle creation mode. The game and `python create_embeddings_openai.py` will use this file over the default `riddles.txt` file.
 
 **Add a new riddle**
 
-4. Enter a riddle into the `riddles_wip.txt` file using the structure summarized above.
-5. Run `python create_embeddings_openai.py` to generate a `riddles_wip.npy` file which stores the embeddings for the terms that you included in your riddle (using `text-embedding-ada-002`).
-6. Run the game to test your riddle.
-7. Repeat steps 4-6 until you're happy with the result.
-8. Copy the new riddle from `riddles_wip.txt` to `riddles.txt`.
+3. Enter a riddle into the `riddles_wip.txt` file using the structure summarized above.
+4. Run `python create_embeddings_openai.py` to generate a `riddles_wip.npy` file which stores the embeddings for the terms that you included in your riddle (using `text-embedding-ada-002`).
+5. Run the game to test your riddle.
+6. Repeat steps 3-5 until you're happy with the result.
+7. Copy the new riddle from `riddles_wip.txt` to `riddles.txt`.
 
 **Wrap-up creation mode**
 
-10. In the `config.py` file, change `file_name` back to `riddles`.
-11. Run `python create_embeddings_openai.py` to update the `riddles.npy` file with the new embeddings.
+8. Delete all content from the `riddles_wip.txt` file (or delete the file). This brings you back to game mode.
+9. Run `python create_embeddings_openai.py` to update the `riddles.npy` file with the embeddings for the newly added riddles.
 
 ## Deployment
 

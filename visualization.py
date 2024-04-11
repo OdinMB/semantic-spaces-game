@@ -47,7 +47,7 @@ def visualize_target_circle(options_distances, chosen_option):
             "backgroundColor": 'white',
             "margin": [0, 0, 0, 0],
             # "width": 300,
-            "height": 400
+            "height": 380
         },
         "title": {"text": None},
         # "responsive": {
