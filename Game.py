@@ -69,8 +69,8 @@ def display_riddle(word1, word2, word3):
         st.markdown(f"""
         <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'>
             The semantic path from <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> to 
-            <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> is most similar to<BR />
-            the semantic path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
+            <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> is most similar to <span class="hide-on-mobile"><br /></span>
+            the path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
             <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
         </div>
         """, unsafe_allow_html=True)
@@ -107,21 +107,18 @@ def app():
 
     if 'attempted_riddles' not in st.session_state:
         st.session_state.attempted_riddles = []
-
     with open(f"{file_name}.txt", "r") as file:
         riddles_data = [line.strip().split(';') for line in file.readlines()]
-
     if 'riddle_data' not in st.session_state:
         choose_riddle(riddles_data)
-
     word1, word2, word3 = st.session_state.riddle
     options = st.session_state.options
 
-    display_riddle(word1, word2, word3)
+    if st.session_state.choice_made:
+        if st.button("Next puzzle"):
+            choose_riddle(riddles_data)
 
-    # if st.session_state.choice_made:
-    #     if st.button("Next puzzle"):
-    #         choose_riddle(riddles_data)
+    display_riddle(word1, word2, word3)
 
     if not st.session_state.get('choice_made', False):
         display_options(options)
@@ -133,8 +130,8 @@ def app():
 
         visualize_target_circle(sorted_options, st.session_state.choice)
 
-        if st.button("Next puzzle"):
-            choose_riddle(riddles_data)
+        # if st.button("Next puzzle"):
+            # choose_riddle(riddles_data)
 
         # If in riddle creation mode: display the options with cosine distances
         if file_name == "riddles_wip":
