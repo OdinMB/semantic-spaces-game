@@ -89,6 +89,7 @@ def app():
     st.set_page_config(
         page_title="Semantic Spaces",
         page_icon="🤯",
+        layout="wide"
     )
     prepare_page()
 
