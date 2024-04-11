@@ -67,20 +67,18 @@ For semantic distance riddles, leave the first two terms empty.
 
 **Activate creation mode**
 
-If the `riddles_wip.txt` file exists and is not empty, you have entered riddle creation mode. The game and `python create_embeddings_openai.py` will use this file over the default `riddles.txt` file.
+If the `riddles_wip.txt` file exists and is not empty, you have entered riddle creation mode. The game will now use this file over the default `riddles.txt` file.
 
 **Add a new riddle**
 
 3. Enter a riddle into the `riddles_wip.txt` file using the structure summarized above.
-4. Run `python create_embeddings_openai.py` to generate a `riddles_wip.npy` file which stores the embeddings for the terms that you included in your riddle (using `text-embedding-ada-002`).
-5. Run the game to test your riddle.
-6. Repeat steps 3-5 until you're happy with the result.
-7. Copy the new riddle from `riddles_wip.txt` to `riddles.txt`.
+4. Run the game to test your riddle (embeddings are created automatically).
+5. Once you're happy with the result, copy the new riddle from `riddles_wip.txt` to `riddles.txt`.
 
 **Wrap-up creation mode**
 
-8. Delete all content from the `riddles_wip.txt` file (or delete the file). This brings you back to game mode.
-9. Run `python create_embeddings_openai.py` to update the `riddles.npy` file with the embeddings for the newly added riddles.
+8. Delete all content from the `riddles_wip.txt` file (or delete the file).
+9. Run `python create_embeddings_openai.py` to update the embeddings database `riddles.npy` with the newly added riddles. Alternatively, you can answer one of the new riddles in game mode. (At that point, the missing embeddings are created automatically.)
 
 ## Deployment
 

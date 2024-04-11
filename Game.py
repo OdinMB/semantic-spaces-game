@@ -5,6 +5,7 @@ from scipy.spatial.distance import cdist
 from visualization import visualize_embeddings, visualize_target_circle
 from config import get_file_name
 from template import prepare_page
+from create_embeddings_openai import generate_npy
 
 file_name = get_file_name()
 # Load the embeddings dictionary
@@ -14,9 +15,17 @@ def get_embedding(term):
     term = term.strip()
     if term == "":
         return np.zeros((1536,))
+
+    global embeddings_dict  
     embedding = embeddings_dict.get(term, None)
     if embedding is None:
-        return np.zeros((1536,))
+        # Generate the embedding and save it to the dictionary
+        generate_npy(file_name)
+        embeddings_dict = np.load(f"{file_name}.npy", allow_pickle=True).item()
+        embedding = embeddings_dict.get(term, None)
+        if embedding is None:
+            # If the term is still not in the dictionary, return a zero vector
+            return np.zeros((1536,))
     return np.array(embedding)
 
 def calculate_distance(target_vector, option_embedding):
