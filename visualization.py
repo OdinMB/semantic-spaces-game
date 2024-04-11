@@ -34,7 +34,7 @@ def visualize_target_circle(options_distances, chosen_option):
                 },
                 "allowOverlap": True,
                 "distance": 25,  # Adjusted closer to optimize space usage
-                "backgroundColor": "white" if i == 0 else None,
+                # "backgroundColor": "white" if i == 0 else None,
                 "padding": 0,
                 "zIndex": 10 if i == 0 else 6,
             }
@@ -46,11 +46,27 @@ def visualize_target_circle(options_distances, chosen_option):
             "type": 'scatter',
             "backgroundColor": 'white',
             "margin": [0, 0, 0, 0],
+            # "width": 400,
+            "height": 400
         },
         "title": {"text": None},
+        "responsive": {
+            "rules": [{
+                "condition": {
+                    "maxWidth": 600
+                },
+                "chartOptions": {
+                    "chart": {
+                        "width": 400,
+                        # "height": 400,
+                    }
+                }
+            }]
+        },
         "tooltip": {
             "enabled": True,
             "pointFormat": "<b>{point.name}</b><br />Distance from center: {point.y:.0f}%<br />Cosine distance: {point.z:.2f}",
+            "headerFormat": None,
         },
         "pane": {
             "startAngle": 0, 
