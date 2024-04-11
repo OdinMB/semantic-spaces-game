@@ -4,7 +4,7 @@ cake;spoiled cherry;children's birthday party;clown nightmare;clumsy magician;ou
 water;ice;Austrians;Germans;Gustav Klimt;Arnold Schwarzenegger;coffee house;Norwegians;Alps
 salad;stew;fairy;leprechaun;witch;dryad;will-o'-the-wisp;dragon;nymph
 fledgling;nest;investment banker;prison;office;golf course;hell;tax haven;mansion
-bee;cockroach;teacher;management consultant;lobbyist;clickbait content creator;fake product reviewer;warlord;telemarketer
-;;lame vacation;guided bus tour;cruise ship vacation;yoga retreat;cooking class;luxury safari;beach holiday
+bee;cockroach;teacher;consultant;lobbyist;clickbait content creator;fake product reviewer;warlord;telemarketer
+;;lame vacation;guided bus tour;cruise ship vacation;yoga retreat;cooking class;luxury safari;backpacking
 ;;a man's job;nurse;lawyer;builder;programmer;receptionist;kindergarten teacher
 ;;a woman's job;nurse;lawyer;builder;programmer;receptionist;kindergarten teacher

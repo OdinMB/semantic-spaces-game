@@ -93,7 +93,7 @@ def app():
     )
     prepare_page()
 
-    st.markdown("<h1 style='text-align: center'>Semantic Spaces</h1>", unsafe_allow_html=True)
+    # st.markdown("<h1 style='text-align: center'>Semantic Spaces</h1>", unsafe_allow_html=True)
 
     if 'attempted_riddles' not in st.session_state:
         st.session_state.attempted_riddles = []
@@ -108,7 +108,11 @@ def app():
     options = st.session_state.options
 
     display_riddle(word1, word2, word3)
-    
+
+    # if st.session_state.choice_made:
+    #     if st.button("Next puzzle"):
+    #         choose_riddle(riddles_data)
+
     if not st.session_state.get('choice_made', False):
         display_options(options)
 
