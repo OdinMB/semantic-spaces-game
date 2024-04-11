@@ -2,11 +2,7 @@
 
 Dive into the depths of semantic pathways as perceived by cutting-edge AI.
 
-## Online version
-
-https://semantic-spaces.onrender.com/.
-
-Please allow for 50 seconds loading time (the downside of using a free hosting service).
+Play online at https://semantic-spaces.onrender.com/.
 
 ## Screenshots
 
