@@ -46,33 +46,33 @@ def visualize_target_circle(options_distances, chosen_option):
             "type": 'scatter',
             "backgroundColor": 'white',
             "margin": [0, 0, 0, 0],
-            # "width": 400,
-            # "height": 400
+            # "width": 300,
+            "height": 400
         },
         "title": {"text": None},
-        "responsive": {
-            "rules": [{
-                "condition": {
-                    "minWdith": 345,
-                    "maxWidth": 600
-                },
-                "chartOptions": {
-                    "chart": {
-                        "width": "300px",
-                        "height": "300px",
-                    }
-                }
-            }, {
-                "condition": {
-                    "minWdith": 601,
-                },
-                "chartOptions": {
-                    "chart": {
-                        "height": "400px",
-                    }
-                }
-            }]
-        },
+        # "responsive": {
+        #     "rules": [{
+        #         "condition": {
+        #             "maxWidth": 600
+        #         },
+        #         "chartOptions": {
+        #             "chart": {
+        #                 "width": 300,
+        #                 "height": 300,
+        #             }
+        #         }
+        #     }, {
+        #         "condition": {
+        #             "minWdith": 601,
+        #         },
+        #         "chartOptions": {
+        #             "chart": {
+        #                 "width": "100%",
+        #                 "height": 400,
+        #             }
+        #         }
+        #     }]
+        # },
         "tooltip": {
             "enabled": True,
             "pointFormat": "<b>{point.name}</b><br />Distance from center: {point.y:.0f}%<br />Cosine distance: {point.z:.2f}",
