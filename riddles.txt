@@ -8,3 +8,8 @@ bee;cockroach;teacher;consultant;lobbyist;clickbait content creator;fake product
 ;;lame vacation;guided bus tour;cruise ship vacation;yoga retreat;cooking class;luxury safari;backpacking
 ;;a man's job;nurse;lawyer;builder;programmer;receptionist;kindergarten teacher
 ;;a woman's job;nurse;lawyer;builder;programmer;receptionist;kindergarten teacher
+Batman;Robin;happiness;contentment;joy;optimism;gratitude;peace;comfort
+city;forest;fork;branch;twig;flower;mushroom;petal;stone
+spilling a glass of wine;"It was an accident!";evading taxes;"It's not a voluntary contribution?";"My calculator was broken.";"I donated to charity, I think.";"I paid a fair amount.";"I believe in tax-free living.";"I fell into a tax loophole."
+seed;tree;spark;blazing inferno;burning passion;scientific discovery;social movement;flourishing relationship;political uprising
+;;civilization in decline;social media influencers;billionaires;fast food empires;fast fashion;24/7 news cycle;endless remakes
