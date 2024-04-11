@@ -53,12 +53,13 @@ def visualize_target_circle(options_distances, chosen_option):
         "responsive": {
             "rules": [{
                 "condition": {
+                    "minWdith": 330,
                     "maxWidth": 600
                 },
                 "chartOptions": {
                     "chart": {
-                        "width": 400,
-                        # "height": 400,
+                        "width": 300,
+                        "height": 300,
                     }
                 }
             }]

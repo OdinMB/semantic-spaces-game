@@ -61,7 +61,7 @@ def display_riddle(word1, word2, word3):
             The semantic path from <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> to 
             <span style='background-color: #FFFF00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> is most similar to<BR />
             the semantic path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
-            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span> .
+            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
         </div>
         """, unsafe_allow_html=True)
 
