@@ -15,6 +15,9 @@ def visualize_target_circle(options_distances, chosen_option):
 
     for i, (option_label, dist) in enumerate(options_distances):
         angle = i * angle_increment
+        # Adjusting angle to start from 0 degrees to avoid text overlap
+        if i > 0:
+            angle -= angle_increment
         scaled_dist = (dist - closest_dist) / (max_distance - closest_dist) * 100 if max_distance > closest_dist else 0
 
         series_data.append({
