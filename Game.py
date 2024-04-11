@@ -94,7 +94,7 @@ def app():
     )
     prepare_page()
 
-    # st.markdown("<h1 style='text-align: center'>Semantic Spaces</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='hide-on-mobile centered'>Semantic Spaces</h1>", unsafe_allow_html=True)
 
     if 'attempted_riddles' not in st.session_state:
         st.session_state.attempted_riddles = []
@@ -127,7 +127,7 @@ def app():
         if st.button("Next puzzle"):
             choose_riddle(riddles_data)
 
-        # If in riddle creation mode: display the sorted options
+        # If in riddle creation mode: display the options with cosine distances
         if file_name == "riddles_wip":
             st.markdown("### Result")
             for term, dist in sorted_options:
