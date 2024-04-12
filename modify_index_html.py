@@ -37,7 +37,7 @@ def find_streamlit_static_path():
         print("Could not locate 'site-packages' directory.")
         return None
 
-def modify_index_html():
+def check_index_html():
     # Custom HTML content
     custom_title = "<title>Semantic Spaces - A Game about Language and AI</title>"
     custom_meta_tags = """
@@ -70,4 +70,4 @@ def modify_index_html():
         print("Unable to proceed without the streamlit static path.")
 
 if __name__ == "__main__":
-    modify_index_html()
+    check_index_html()
