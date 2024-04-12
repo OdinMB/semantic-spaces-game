@@ -6,7 +6,7 @@ from visualization import visualize_embeddings, visualize_target_circle
 from config import get_file_name
 from template import prepare_page
 from create_embeddings_openai import generate_npy
-from modify_index_html import check_index_html
+# from modify_index_html import check_index_html
 
 file_name = get_file_name()
 # Load the embeddings dictionary

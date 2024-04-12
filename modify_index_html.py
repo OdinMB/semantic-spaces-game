@@ -48,15 +48,14 @@ def check_index_html():
     <meta property="og:type" content="website">
     <meta property="og:title" content="Semantic Spaces - A Game about Language and AI">
     <meta property="og:description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Try to answer like a modern AI language model.">
-    <meta property="og:image" content="https://semantics.fun/media/b7a257bff0148d91976885bc9324c8bb78c806f1a83a608ccbe01a30.jpg">
-    
+    <meta property="og:image" content="https://github.com/OdinMB/semantic-spaces-game/blob/main/img/labyrinth.jpg?raw=true">
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="semantics.fun">
     <meta property="twitter:url" content="https://semantics.fun">
     <meta name="twitter:title" content="Semantic Spaces - A Game about Language and AI">
     <meta name="twitter:description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Try to answer like a modern AI language model.">
-    <meta name="twitter:image" content="https://semantics.fun/media/b7a257bff0148d91976885bc9324c8bb78c806f1a83a608ccbe01a30.jpg">
+    <meta name="twitter:image" content="https://github.com/OdinMB/semantic-spaces-game/blob/main/img/labyrinth.jpg?raw=true">
     """
 
     streamlit_static_path = find_streamlit_static_path()
