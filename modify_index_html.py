@@ -11,10 +11,10 @@ def modify_index_html(index_html_path, custom_title, custom_meta_tags, force=Fal
     try:
         with open(index_html_path, 'r', encoding='utf-8') as file:
             original_content = file.read()
-        # print(f"Successfully read from {index_html_path}.")
+        print(f"Successfully read from {index_html_path}.")
 
         if check_for_opengraph_tags(original_content) and not force:
-            # print("OpenGraph tags already present, no modifications made.")
+            print("OpenGraph tags already present, no modifications made.")
             return
 
         new_content = re.sub(r'<title>.*?</title>', custom_title, original_content, flags=re.DOTALL)
@@ -41,20 +41,22 @@ def check_index_html():
     # Custom HTML content
     custom_title = "<title>Semantic Spaces - A Game about Language and AI</title>"
     custom_meta_tags = """
-    <meta name="description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Try to answer like a modern AI language model.">
+    <meta name="description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Compare your intuition to a modern AI language model.">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:url" content="https://semantics.fun">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Semantic Spaces - A Game about Language and AI">
-    <meta property="og:description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Try to answer like a modern AI language model.">
+    <meta property="og:description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Compare your intuition to a modern AI language model.">
     <meta property="og:image" content="https://github.com/OdinMB/semantic-spaces-game/blob/main/img/labyrinth.jpg?raw=true">
     <!-- Twitter Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:domain" content="semantics.fun">
     <meta property="twitter:url" content="https://semantics.fun">
     <meta name="twitter:title" content="Semantic Spaces - A Game about Language and AI">
-    <meta name="twitter:description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Try to answer like a modern AI language model.">
+    <meta name="twitter:description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Compare your intuition to a modern AI language model.">
     <meta name="twitter:image" content="https://github.com/OdinMB/semantic-spaces-game/blob/main/img/labyrinth.jpg?raw=true">
     """
 
