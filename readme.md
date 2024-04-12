@@ -83,6 +83,10 @@ Streamlit needs to be deployed in headless mode. Do one of these:
 - Set environment variable `STREAMLIT_SERVER_HEADLESS=true`
 - Use a parameter in the start command `streamlit run Game.py --server.headless true`
 
+If you want the page to include HTML meta tags (description, OpenGraph and Twitter information), run the following command before starting the app:
+
+    python modify_index_html.py
+
 ## License
 
 "Semantic Spaces" by Odin Mühlenbein is published under a CC-BY 4.0 license.
