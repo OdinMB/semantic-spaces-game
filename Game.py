@@ -115,7 +115,7 @@ def app():
     options = st.session_state.options
 
     if st.session_state.choice_made:
-        if st.button("Next puzzle"):
+        if st.button("Next puzzle", type="primary"):
             choose_riddle(riddles_data)
 
     display_riddle(word1, word2, word3)

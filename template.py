@@ -34,5 +34,5 @@ def prepare_page():
 
     st.sidebar.info("No cookies, no tracking, no ads. Just fun with language.")
     st.sidebar.info("'Semantic Spaces' by Odin Mühlenbein is published under a [CC-BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).")
-    st.sidebar.info("""Contributions are welcome! Please visit the [GitHub](https://github.com/OdinMB/semantic-spaces-game) repo.""")
+    st.sidebar.info("""Want to improve the game? Add puzzles? Visit [GitHub](https://github.com/OdinMB/semantic-spaces-game).""")
 

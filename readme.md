@@ -2,7 +2,7 @@
 
 Dive into the depths of semantic pathways as perceived by cutting-edge AI.
 
-Play online at https://semantic-spaces.onrender.com/.
+Play online at https://semantics.fun.
 
 ## Screenshots
 
