@@ -50,9 +50,13 @@ def visualize_target_circle(options_distances, chosen_option):
             "backgroundColor": 'white',
             "margin": [0, 0, 0, 0],
             # "width": 300,
-            "height": 380
+            "height": 380,
         },
-        "title": {"text": None},
+        "title": {
+            "floating": True,
+            "useHTML": True,
+            "text": "<span style='background-color: white; padding: 10px; font-size: 24px'>Answer by AI</span>", 
+        },
         # "responsive": {
         #     "rules": [{
         #         "condition": {

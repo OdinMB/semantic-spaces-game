@@ -1,9 +1,10 @@
 import os
 
 def get_file_name():
-    # Check if the riddles_wip.txt file exists
+    # Check if the riddles_wip.json file exists
     # If it exists and is not empty, use it
-    if os.path.exists("riddles_wip.txt"):
-        if os.stat("riddles_wip.txt").st_size != 0:
+    if os.path.exists("riddles_wip.json"):
+        # if riddles_wip.json is smaller than 150 bytes, it's empty
+        if os.stat("riddles_wip.json").st_size > 150:
             return "riddles_wip"
     return "riddles"

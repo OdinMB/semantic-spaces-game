@@ -42,39 +42,40 @@ Launch the game
 
 ### Convention
 
-Riddles are stored in the `riddles.txt` file, with one riddle in each line. For semantic pathway riddles, the first three terms of each line are the ones showing up in the riddle statement. The six following ones are the options that the player can choose from. Terms are separated by ';'.
+Riddles are stored in the `riddles.json` file. For semantic pathway riddles, provide three terms as `keywords`.
 
 "**Japan** is to **Germany** as **sushi** is to **\_\_\_\_\_**" is stored like this:
 
-    Japan;Germany;sushi;bratwurst;schnitzel;beer;pretzel;marzipan;autobahn
+    "keywords": ["Japan", "Germany", "sushi"]
 
-For semantic distance riddles, leave the first two terms empty.
+For semantic distance riddles, provide just one term for `keywords`.
 
-"**Lame vacation** is semantically closest to **\_\_\_\_\_**" is stored like this:
+"**Lame vacation** is closest to **\_\_\_\_\_**" is stored like this:
 
-    ;;lame vacation;guided bus tour;cruise ship vacation;etc.
+    "keywords": ["lame vacation"]
 
 ### Process
 
 **Set up creation mode** (once)
 
-1. Create a `.env` file with this entry: `OPENAI_API_KEY=your-api-key`.
-2. Create a `riddles_wip.txt` file.
+1. Create an account at OpenAI (API access, not ChatGPT).
+2. Create a `.env` file with this entry: `OPENAI_API_KEY=your-api-key`.
+3. Create a `riddles_wip.json` file.
 
 **Activate creation mode**
 
-If the `riddles_wip.txt` file exists and is not empty, you have entered riddle creation mode. The game will now use this file over the default `riddles.txt` file.
+If the `riddles_wip.json` file exists and has at least one riddle defined, you have entered riddle creation mode. The game will now use this file over the default `riddles.json` file.
 
 **Add a new riddle**
 
-3. Enter a riddle into the `riddles_wip.txt` file using the structure summarized above.
-4. Run the game to test your riddle (embeddings are created automatically).
-5. Once you're happy with the result, copy the new riddle from `riddles_wip.txt` to `riddles.txt`.
+4. Enter a riddle into the `riddles_wip.json` file using the JSON structure from the `riddles.json` file.
+5. Run the game to test your riddle (embeddings are created automatically).
+6. Once you're happy with the result, copy the new riddle from `riddles_wip.json` to `riddles.json`.
 
 **Wrap-up creation mode**
 
-8. Delete all content from the `riddles_wip.txt` file (or delete the file).
-9. Run `python create_embeddings_openai.py` to update the embeddings database `riddles.npy` with the newly added riddles. Alternatively, you can answer one of the new riddles in game mode. (At that point, the missing embeddings are created automatically.)
+7. Delete all keywords, options, and tags from the `riddles_wip.json` file (or delete the file).
+8. Run `python create_embeddings_openai.py` to update the embeddings database `riddles.npy` with the newly added riddles. Alternatively, you can answer one of the new riddles in game mode. (At that point, the missing embeddings are created automatically.)
 
 ## Deployment
 

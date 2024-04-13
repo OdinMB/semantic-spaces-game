@@ -4,6 +4,5 @@ __pycache__
 
 dictionaries
 riddles_backlog.txt
-riddles_backlog.npy
-riddles_wip.txt
+riddles_wip.json
 riddles_wip.npy

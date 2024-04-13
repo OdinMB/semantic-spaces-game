@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import json
 import random
 from scipy.spatial.distance import cdist
 from visualization import visualize_embeddings, visualize_target_circle
@@ -33,46 +34,52 @@ def calculate_distance(target_vector, option_embedding):
     return cdist(target_vector.reshape(1, -1), option_embedding.reshape(1, -1), 'cosine')[0][0]
 
 def choose_riddle(riddles_data):
-    # Filter riddles that haven't been attempted
-    unattempted_riddles = [r for i, r in enumerate(riddles_data) if i not in st.session_state.attempted_riddles]
+    # First, filter out riddles that have been attempted
+    unattempted_riddles = [r for r in riddles_data if r['id'] not in st.session_state.attempted_riddles]
     
-    # Check if there are any unattempted riddles left
-    if unattempted_riddles:
-        # Randomly select from unattempted riddles
-        chosen_riddle = random.choice(unattempted_riddles)
-        chosen_index = riddles_data.index(chosen_riddle)
-        
-        # Update session state with chosen riddle
-        st.session_state.riddle_data = chosen_riddle
-        st.session_state.riddle = chosen_riddle[:3]
-        st.session_state.options = chosen_riddle[3:]
-        st.session_state.choice_made = False
-        
-        # Record this riddle as attempted
-        st.session_state.attempted_riddles.append(chosen_index)
+    # If fewer than two riddles have been attempted, further filter for "intro" riddles
+    if len(st.session_state.attempted_riddles) < 2:
+        intro_riddles = [r for r in unattempted_riddles if 'intro' in r['tags']]
+        # Use intro riddles if available, otherwise fall back to any unattempted riddle
+        riddles_to_choose_from = intro_riddles if intro_riddles else unattempted_riddles
     else:
+        riddles_to_choose_from = unattempted_riddles
+
+    # Choose a riddle from the filtered list
+    if riddles_to_choose_from:
+        chosen_riddle = random.choice(riddles_to_choose_from)
+        # Update session state with chosen riddle data
+        st.session_state.riddle = chosen_riddle
+        st.session_state.choice = False
+    else:
+        # If there are no riddles left to choose from, reset and show a warning
         st.warning("You've attempted all available puzzles! Resetting...")
-        st.session_state.attempted_riddles = []  # Reset attempted riddles
+        st.session_state.attempted_riddles = []
+        choose_riddle(riddles_data)
+        return
+
     st.rerun()
 
-def display_riddle(word1, word2, word3):
-    if word1.strip() == "":
-        # Semantic distance riddle
-        # Make the first letter of word3 uppercase
-        word3 = word3[0].upper() + word3[1:]
-        st.markdown(f"""
-        <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'><span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> 
-        is semantically closest to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        # Semantic path riddle
+def display_riddle(keywords):
+    # Semantic path riddle
+    if len(keywords) == 3:
+        word1, word2, word3 = keywords
+        word1 = word1.capitalize()
         st.markdown(f"""
         <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'>
-            The semantic path from <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> to 
-            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> is most similar to <span class="hide-on-mobile"><br /></span>
-            the path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
+            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> to 
+            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> <span style='margin-left: 15px; margin-right: 15px;'>is like</span>
+            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
             <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
+        </div>
+        """, unsafe_allow_html=True)
+        # <span class="hide-on-mobile"><br /></span>
+    # Semantic distance riddle
+    else:
+        keyword = keywords[0].capitalize()
+        st.markdown(f"""
+        <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'><span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{keyword}</span> 
+        is closest to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
         </div>
         """, unsafe_allow_html=True)
 
@@ -93,13 +100,22 @@ def display_options(options):
                     button_key = f"option_{option_index}"  # Unique key for each button
                     if st.button(option, key=button_key):
                         st.session_state['choice'] = option
-                        st.session_state['choice_made'] = True
+                        # Record this riddle as attempted by its 'id'
+                        st.session_state.attempted_riddles.append(st.session_state.riddle['id'])
                         st.rerun()
 
 def reset_aiscore():
     st.session_state.aiscore_relalignment = 0
     st.session_state.aiscore_n = 0
     st.rerun()
+
+def adjust_ai_score(sorted_options, target_vector, player_choice):
+    closest_dist = sorted_options[0][1]
+    furthest_dist = sorted_options[-1][1]
+    choice_dist = calculate_distance(target_vector, get_embedding(st.session_state.choice))
+    rel_alignment = 1 - (choice_dist - closest_dist) / (furthest_dist - closest_dist)
+    st.session_state.aiscore_relalignment += rel_alignment
+    st.session_state.aiscore_n += 1
 
 def app():
     st.set_page_config(
@@ -109,44 +125,48 @@ def app():
     )
     prepare_page()
 
-    st.markdown("<h1 class='hide-on-mobile centered'>Semantic Spaces</h1>", unsafe_allow_html=True)
+    # Ensure 'attempted_riddles' is initialized in the session state
+    if 'attempted_riddles' not in st.session_state:
+        st.session_state.attempted_riddles = []
 
     # counters for calculating the "AI alignment score"
     if 'aiscore_relalignment' not in st.session_state:
         st.session_state.aiscore_relalignment = 0
         st.session_state.aiscore_n = 0
-    # Load the riddles data
-    if 'attempted_riddles' not in st.session_state:
-        st.session_state.attempted_riddles = []
-    with open(f"{file_name}.txt", "r") as file:
-        riddles_data = [line.strip().split(';') for line in file.readlines()]
-    if 'riddle_data' not in st.session_state:
-        choose_riddle(riddles_data)
-    word1, word2, word3 = st.session_state.riddle
-    options = st.session_state.options
 
-    if st.session_state.choice_made:
+    with open(f"{file_name}.json", 'r') as file:
+        # Load the entire JSON data
+        json_data = json.load(file)
+        riddles_data = json_data['riddles']
+
+    if 'riddle' not in st.session_state:
+        choose_riddle(riddles_data)
+    keywords = st.session_state.riddle["keywords"]
+    options = st.session_state.riddle["options"]
+
+    st.markdown("<h1 class='hide-on-mobile centered'>Semantic Spaces</h1>", unsafe_allow_html=True)
+
+    if st.session_state.choice:
         if st.button("Next puzzle", type="primary"):
             choose_riddle(riddles_data)
 
-    display_riddle(word1, word2, word3)
+    display_riddle(keywords)
 
-    if not st.session_state.get('choice_made', False):
+    if not st.session_state.get('choice', False):
         display_options(options)
 
-    if st.session_state.choice_made:
-        target_vector = get_embedding(word3) + get_embedding(word2) - get_embedding(word1)
+    if st.session_state.get('choice', False):
+        if len(keywords) == 3:
+            target_vector = get_embedding(keywords[2]) + get_embedding(keywords[1]) - get_embedding(keywords[0])
+        else:
+            target_vector = get_embedding(keywords[0])
         distances = [(option, calculate_distance(target_vector, get_embedding(option))) for option in options]
         sorted_options = sorted(distances, key=lambda x: x[1])
         
         # Adjust the AI alignment score
-        closest_dist = sorted_options[0][1]
-        furthest_dist = sorted_options[-1][1]
-        choice_dist = calculate_distance(target_vector, get_embedding(st.session_state.choice))
-        rel_alignment = 1 - (choice_dist - closest_dist) / (furthest_dist - closest_dist)
-        st.session_state.aiscore_relalignment += rel_alignment
-        st.session_state.aiscore_n += 1
+        adjust_ai_score(sorted_options, target_vector, st.session_state.choice)
 
+        # Show the AI response as a target cirlce
         visualize_target_circle(sorted_options, st.session_state.choice)
 
         # if st.button("Next puzzle"):
@@ -168,7 +188,7 @@ def app():
     # Display the AI alignment score
     if st.session_state.aiscore_n > 0:
         ai_alignment_score = st.session_state.aiscore_relalignment / st.session_state.aiscore_n
-        st.markdown(f"<div class='centered'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} puzzles).</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='centered'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} {"puzzles" if st.session_state.aiscore_n > 1 else "puzzle"}).</div>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
     app()

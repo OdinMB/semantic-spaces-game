@@ -1,0 +1,209 @@
+{
+  "riddles": [
+    {
+      "id": 1,
+      "keywords": ["Japan", "Germany", "sushi"],
+      "options": [
+        "beer",
+        "schnitzel",
+        "pretzel",
+        "marzipan",
+        "bratwurst",
+        "autobahn"
+      ],
+      "tags": ["bias", "intro"]
+    },
+    {
+      "id": 2,
+      "keywords": ["baron", "king", "squirrel"],
+      "options": [
+        "fox",
+        "wolf",
+        "stag",
+        "Forest Guardian",
+        "panther",
+        "oak tree"
+      ],
+      "tags": ["normal"]
+    },
+    {
+      "id": 3,
+      "keywords": ["cake", "spoiled cherry", "children's birthday party"],
+      "options": [
+        "clown nightmare",
+        "clumsy magician",
+        "out-of-tune singing",
+        "pinata miss",
+        "bouncy castle blowout",
+        "firework fiasco"
+      ],
+      "tags": ["normal"]
+    },
+    {
+      "id": 4,
+      "keywords": ["water", "ice", "Austrians"],
+      "options": [
+        "Germans",
+        "Gustav Klimt",
+        "Arnold Schwarzenegger",
+        "coffee house",
+        "Norwegians",
+        "Alps"
+      ],
+      "tags": ["satirical"]
+    },
+    {
+      "id": 5,
+      "keywords": ["salad", "stew", "fairy"],
+      "options": [
+        "leprechaun",
+        "witch",
+        "dryad",
+        "will-o'-the-wisp",
+        "dragon",
+        "nymph"
+      ],
+      "tags": ["normal"]
+    },
+    {
+      "id": 6,
+      "keywords": ["fledgling", "nest", "investment banker"],
+      "options": [
+        "prison",
+        "office",
+        "golf course",
+        "hell",
+        "tax haven",
+        "mansion"
+      ],
+      "tags": ["satirical"]
+    },
+    {
+      "id": 7,
+      "keywords": ["bee", "cockroach", "teacher"],
+      "options": [
+        "consultant",
+        "lobbyist",
+        "clickbait content creator",
+        "fake product reviewer",
+        "warlord",
+        "telemarketer"
+      ],
+      "tags": ["satirical"]
+    },
+    {
+      "id": 8,
+      "keywords": ["lame vacation"],
+      "options": [
+        "guided bus tour",
+        "cruise ship vacation",
+        "yoga retreat",
+        "cooking class",
+        "luxury safari",
+        "backpacking"
+      ],
+      "tags": ["satirical"]
+    },
+    {
+      "id": 9,
+      "keywords": ["a man's job"],
+      "options": [
+        "nurse",
+        "lawyer",
+        "builder",
+        "programmer",
+        "receptionist",
+        "kindergarten teacher"
+      ],
+      "tags": ["bias"]
+    },
+    {
+      "id": 10,
+      "keywords": ["a woman's job"],
+      "options": [
+        "nurse",
+        "lawyer",
+        "builder",
+        "programmer",
+        "receptionist",
+        "kindergarten teacher"
+      ],
+      "tags": ["bias"]
+    },
+    {
+      "id": 11,
+      "keywords": ["Batman", "Robin", "happiness"],
+      "options": [
+        "contentment",
+        "joy",
+        "optimism",
+        "gratitude",
+        "peace",
+        "comfort"
+      ],
+      "tags": ["normal"]
+    },
+    {
+      "id": 12,
+      "keywords": ["city", "forest", "fork"],
+      "options": ["branch", "twig", "flower", "mushroom", "petal", "stone"],
+      "tags": ["normal"]
+    },
+    {
+      "id": 13,
+      "keywords": [
+        "spilling a glass of wine",
+        "\"It was an accident!\"",
+        "evading taxes"
+      ],
+      "options": [
+        "\"It's not a voluntary contribution?\"",
+        "\"My calculator was broken.\"",
+        "\"I already donated to charity.\"",
+        "\"I paid a fair amount.\"",
+        "\"I believe in tax-free living.\"",
+        "\"I fell into a tax loophole.\""
+      ],
+      "tags": ["satirical"]
+    },
+    {
+      "id": 14,
+      "keywords": ["seed", "tree", "spark"],
+      "options": [
+        "blazing inferno",
+        "burning passion",
+        "scientific discovery",
+        "social movement",
+        "flourishing relationship",
+        "political uprising"
+      ],
+      "tags": ["normal"]
+    },
+    {
+      "id": 15,
+      "keywords": ["civilization in decline"],
+      "options": [
+        "social media influencers",
+        "billionaires",
+        "fast food empires",
+        "fast fashion",
+        "24/7 news cycle",
+        "endless remakes"
+      ],
+      "tags": ["satirical"]
+    },
+    {
+      "id": 16,
+      "keywords": ["stars"],
+      "options": [
+        "sun",
+        "night",
+        "moon",
+        "universe",
+        "galaxy",
+        "constellation"
+      ],
+      "tags": ["intro"]
+    }
+  ]
+}
