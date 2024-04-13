@@ -96,6 +96,11 @@ def display_options(options):
                         st.session_state['choice_made'] = True
                         st.rerun()
 
+def reset_aiscore():
+    st.session_state.aiscore_relalignment = 0
+    st.session_state.aiscore_n = 0
+    st.rerun()
+
 def app():
     st.set_page_config(
         page_title="Semantic Spaces",
@@ -106,6 +111,11 @@ def app():
 
     st.markdown("<h1 class='hide-on-mobile centered'>Semantic Spaces</h1>", unsafe_allow_html=True)
 
+    # counters for calculating the "AI alignment score"
+    if 'aiscore_relalignment' not in st.session_state:
+        st.session_state.aiscore_relalignment = 0
+        st.session_state.aiscore_n = 0
+    # Load the riddles data
     if 'attempted_riddles' not in st.session_state:
         st.session_state.attempted_riddles = []
     with open(f"{file_name}.txt", "r") as file:
@@ -128,6 +138,14 @@ def app():
         target_vector = get_embedding(word3) + get_embedding(word2) - get_embedding(word1)
         distances = [(option, calculate_distance(target_vector, get_embedding(option))) for option in options]
         sorted_options = sorted(distances, key=lambda x: x[1])
+        
+        # Adjust the AI alignment score
+        closest_dist = sorted_options[0][1]
+        furthest_dist = sorted_options[-1][1]
+        choice_dist = calculate_distance(target_vector, get_embedding(st.session_state.choice))
+        rel_alignment = 1 - (choice_dist - closest_dist) / (furthest_dist - closest_dist)
+        st.session_state.aiscore_relalignment += rel_alignment
+        st.session_state.aiscore_n += 1
 
         visualize_target_circle(sorted_options, st.session_state.choice)
 
@@ -146,6 +164,11 @@ def app():
         # Embeddings visualization in 2D map
         # fig = visualize_embeddings(get_embedding, [word1, word2, word3], options, st.session_state.choice, target_vector, 2)
         # st.pyplot(fig)
+
+    # Display the AI alignment score
+    if st.session_state.aiscore_n > 0:
+        ai_alignment_score = st.session_state.aiscore_relalignment / st.session_state.aiscore_n
+        st.markdown(f"<div class='centered'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} puzzles).</div>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
     app()
