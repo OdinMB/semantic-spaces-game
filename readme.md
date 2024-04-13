@@ -1,6 +1,6 @@
 # Semantic Spaces
 
-Dive into the depths of semantic pathways as perceived by cutting-edge AI.
+Compare your semantic intuition to that of a modern AI language model.
 
 Play online at https://semantics.fun.
 
@@ -83,9 +83,7 @@ Streamlit needs to be deployed in headless mode. Do one of these:
 - Set environment variable `STREAMLIT_SERVER_HEADLESS=true`
 - Use a parameter in the start command `streamlit run Game.py --server.headless true`
 
-If you want the page to include HTML meta tags (description, OpenGraph and Twitter information), run the following command before starting the app:
-
-    python modify_index_html.py
+If you want the page to include HTML meta tags (description, OpenGraph and Twitter information), run the following command before starting the app: `python modify_index_html.py`. Depending on your hosting environment, you might have to combine this with the start command. `python modify_index_html.py && streamlit run Game.py --server.headless true`.
 
 ## License
 
