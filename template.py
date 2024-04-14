@@ -1,6 +1,6 @@
 import streamlit as st
 
-def prepare_page():
+def set_styles():
     st.markdown("""
         <style>
             .block-container {
@@ -72,18 +72,43 @@ def prepare_page():
                 background: #25d366;
             }
         </style>
-    """, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)    
 
-    # Ensure the necessary keys exist in st.session_state for the filter checkboxes
-    for tag in ["filter_weird", "filter_bias", "filter_satirical"]:
-        if tag not in st.session_state:
-            st.session_state[tag] = True  # Checkboxes checked by default
+def get_checkbox_initial_state(filter_name):
+    """
+    Fetch the initial state of a filter checkbox based on URL query parameters.
+    
+    Args:
+    - filter_name (str): The name of the filter as specified in the URL.
+    
+    Returns:
+    - bool: The initial state of the checkbox (True if checked, False otherwise).
+    """
+    query_params_dict = st.query_params.to_dict()
+    filter_name = filter_name.lower()
+    if filter_name in query_params_dict:
+        return query_params_dict[filter_name].lower() in ["true", "1", "t"]
+    else:
+        return True
+
+def prepare_page():
+    set_styles()
+
+    if 'initial_filters_set' not in st.session_state:
+        st.session_state.initial_filters_set = False
+
+    if not st.session_state.initial_filters_set:
+        # Ensure the necessary keys exist in st.session_state for the filter checkboxes
+        st.session_state['filter_satirical'] = get_checkbox_initial_state('satirical')
+        st.session_state['filter_weird'] = get_checkbox_initial_state('weird')
+        st.session_state['filter_bias'] = get_checkbox_initial_state('bias')
+        st.session_state.initial_filters_set = True
 
     # Render checkboxes and bind them to the st.session_state variables
     st.sidebar.markdown("**Themes**")
-    st.sidebar.checkbox("Weird jumps", value=True, key='filter_weird')
-    st.sidebar.checkbox("Biases & stereotypes", value=True, key='filter_bias')
-    st.sidebar.checkbox("Satire", value=True, key='filter_satirical')
+    st.sidebar.checkbox("Satire", key='filter_satirical')
+    st.sidebar.checkbox("Weird jumps", key='filter_weird')
+    st.sidebar.checkbox("Biases & stereotypes", key='filter_bias')
 
     # st.markdown("<hr>", unsafe_allow_html=True)
 

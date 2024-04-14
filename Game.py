@@ -59,7 +59,7 @@ def choose_riddle(riddles_data):
             reset_aiscore()
             choose_riddle(riddles_data)
         else:
-            st.warning("You've attempted all available puzzles with the current filters! Click 'Next puzzle' to reset and try again.")
+            st.warning("You've attempted all available puzzles with the current filters. Click 'Next puzzle' to reset and try again.")
             st.session_state.reset_warning = True
     
 
