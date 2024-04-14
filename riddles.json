@@ -204,6 +204,19 @@
         "constellation"
       ],
       "tags": ["intro"]
+    },
+    {
+      "id": 17,
+      "keywords": ["first world problem"],
+      "options": [
+        "slow wifi",
+        "unskippable YouTube ads",
+        "latte art not Instagram-worthy",
+        "smart home devices not syncing",
+        "two-day shipping feels too long",
+        "coffee shop out of oat milk"
+      ],
+      "tags": ["satirical"]
     }
   ]
 }

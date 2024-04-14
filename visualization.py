@@ -55,7 +55,7 @@ def visualize_target_circle(options_distances, chosen_option):
         "title": {
             "floating": True,
             "useHTML": True,
-            "text": "<span style='background-color: white; padding: 10px; font-size: 24px'>Answer by AI</span>", 
+            "text": "<span style='background-color: white; padding: 10px; font-size: 24px'>AI's intuition</span>", 
         },
         # "responsive": {
         #     "rules": [{

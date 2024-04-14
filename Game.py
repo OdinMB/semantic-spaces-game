@@ -37,15 +37,18 @@ def choose_riddle(riddles_data):
     # First, filter out riddles that have been attempted
     unattempted_riddles = [r for r in riddles_data if r['id'] not in st.session_state.attempted_riddles]
     
-    # The first two riddles are a tutorial
-    if len(st.session_state.attempted_riddles) < 2:
-        filtered_riddles = [r for r in unattempted_riddles if 'intro' in r['tags']]
-    # Later riddles are filtered based on the user's preferences
+    if file_name == "riddles_wip":
+        filtered_riddles = unattempted_riddles
     else:
-        selected_tags = [tag for tag, checked in [('weird', st.session_state.filter_weird), 
-                                                ('bias', st.session_state.filter_bias), 
-                                                ('satirical', st.session_state.filter_satirical)] if checked]
-        filtered_riddles = [r for r in unattempted_riddles if any(tag in r['tags'] for tag in selected_tags)]
+        # The first two riddles are a tutorial
+        if len(st.session_state.attempted_riddles) < 2:
+            filtered_riddles = [r for r in unattempted_riddles if 'intro' in r['tags']]
+        # Later riddles are filtered based on the user's preferences
+        else:
+            selected_tags = [tag for tag, checked in [('weird', st.session_state.filter_weird), 
+                                                    ('bias', st.session_state.filter_bias), 
+                                                    ('satirical', st.session_state.filter_satirical)] if checked]
+            filtered_riddles = [r for r in unattempted_riddles if any(tag in r['tags'] for tag in selected_tags)]
 
     if filtered_riddles:
         chosen_riddle = random.choice(filtered_riddles)
@@ -182,6 +185,16 @@ def app():
             # if st.button("Next puzzle"):
                 # choose_riddle(riddles_data)
 
+            # Embeddings visualization in 2D map
+            # fig = visualize_embeddings(get_embedding, [word1, word2, word3], options, st.session_state.choice, target_vector, 2)
+            # st.pyplot(fig)
+
+            # Display the AI alignment score after the player has made a choice
+            if st.session_state.aiscore_n > 0:
+                ai_alignment_score = st.session_state.aiscore_relalignment / st.session_state.aiscore_n
+                puzzle_text = "puzzles" if st.session_state.aiscore_n > 1 else "puzzle"
+                st.markdown(f"<div class='centered' style='margin-top: -45px'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} {puzzle_text}).</div>", unsafe_allow_html=True)
+
             # If in riddle creation mode: display the options with cosine distances
             if file_name == "riddles_wip":
                 st.markdown("### Result")
@@ -191,15 +204,6 @@ def app():
                     else:
                         st.markdown(f"{term} (distance: {dist:.2f})")
 
-            # Embeddings visualization in 2D map
-            # fig = visualize_embeddings(get_embedding, [word1, word2, word3], options, st.session_state.choice, target_vector, 2)
-            # st.pyplot(fig)
-
-            # Display the AI alignment score after the player has made a choice
-            if st.session_state.aiscore_n > 0:
-                ai_alignment_score = st.session_state.aiscore_relalignment / st.session_state.aiscore_n
-                puzzle_text = "puzzles" if st.session_state.aiscore_n > 1 else "puzzle"
-                st.markdown(f"<div class='centered' style='margin-top: -30px'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} {puzzle_text}).</div>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
     app()
