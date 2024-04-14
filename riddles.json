@@ -28,7 +28,7 @@
     },
     {
       "id": 3,
-      "keywords": ["cake", "spoiled cherry", "children's birthday party"],
+      "keywords": ["cake", "cherry stone", "children's birthday party"],
       "options": [
         "clown nightmare",
         "clumsy magician",
@@ -79,13 +79,13 @@
       "tags": ["satirical"]
     },
     {
-      "id": 7,
-      "keywords": ["bee", "cockroach", "teacher"],
+      "id": 1,
+      "keywords": ["bee", "mosquito", "teacher"],
       "options": [
-        "consultant",
+        "tax consultant",
         "lobbyist",
         "clickbait content creator",
-        "fake product reviewer",
+        "con artist",
         "warlord",
         "telemarketer"
       ],
@@ -145,8 +145,15 @@
     },
     {
       "id": 12,
-      "keywords": ["city", "forest", "fork"],
-      "options": ["branch", "twig", "flower", "mushroom", "petal", "stone"],
+      "keywords": ["city", "forest", "refrigerator"],
+      "options": [
+        "picnic cooler",
+        "squirrel's stash",
+        "snow cave",
+        "mushroom growing kit",
+        "dewdrop dispenser",
+        "root cellar"
+      ],
       "tags": ["weird"]
     },
     {

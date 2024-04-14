@@ -108,7 +108,7 @@ def prepare_page():
     st.sidebar.markdown("**Themes**")
     st.sidebar.checkbox("Satire", key='filter_satirical', value=st.session_state.filter_satirical)
     st.sidebar.checkbox("Weird jumps", key='filter_weird', value=st.session_state.filter_weird)
-    st.sidebar.checkbox("Biases & stereotypes", key='filter_bias', value=st.session_state.filter_bias)
+    st.sidebar.checkbox("Biases", key='filter_bias', value=st.session_state.filter_bias)
 
     # st.markdown("<hr>", unsafe_allow_html=True)
 

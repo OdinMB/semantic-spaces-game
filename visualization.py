@@ -48,7 +48,7 @@ def visualize_target_circle(options_distances, chosen_option):
             "polar": True,
             "type": 'scatter',
             "backgroundColor": 'white',
-            "margin": [0, 0, 0, 0],
+            "margin": [-0, 0, -0, 0],
             # "width": 300,
             "height": 380,
         },
@@ -57,29 +57,18 @@ def visualize_target_circle(options_distances, chosen_option):
             "useHTML": True,
             "text": "<span style='background-color: white; padding: 10px; font-size: 24px'>AI's intuition</span>", 
         },
-        # "responsive": {
-        #     "rules": [{
-        #         "condition": {
-        #             "maxWidth": 600
-        #         },
-        #         "chartOptions": {
-        #             "chart": {
-        #                 "width": 300,
-        #                 "height": 300,
-        #             }
-        #         }
-        #     }, {
-        #         "condition": {
-        #             "minWdith": 601,
-        #         },
-        #         "chartOptions": {
-        #             "chart": {
-        #                 "width": "100%",
-        #                 "height": 400,
-        #             }
-        #         }
-        #     }]
-        # },
+        "responsive": {
+            "rules": [{
+                "condition": {
+                    "maxWidth": 600
+                },
+                "chartOptions": {
+                    "chart": {
+                        "margin": [-15, 0, -15, 0]
+                    }
+                }
+            }]
+        },
         "tooltip": {
             "enabled": True,
             "pointFormat": "<b>{point.name}</b><br />Distance from center: {point.y:.0f}%<br />Cosine distance: {point.z:.2f}",

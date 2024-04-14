@@ -67,32 +67,26 @@ def choose_riddle(riddles_data):
     
 
 def display_riddle(keywords):
-    help_text = ""
-    if len(st.session_state.attempted_riddles) < 2 and not st.session_state.choice:
-        help_text = f""" <a href="/How_to_play" target="_self">How does this work?</a>
-        """
-    
     # Semantic path riddle
     if len(keywords) == 3:
         word1, word2, word3 = keywords
-        word1 = word1.capitalize()
+        word1 = word1[0].upper() + word1[1:]
         st.markdown(f"""
         <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'>
-            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> is to 
+            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px 0 0; color: #000'>{word1}</span> is to 
             <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> <span style='margin-left: 15px; margin-right: 15px;'>as</span>
             <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> is to 
-            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
-        {help_text}
+            <span style='background-color: #DDDD00; padding: 0 40px; margin: 0 3px; color: #000;'>?</span>.
         </div>
         """, unsafe_allow_html=True)
         # <span class="hide-on-mobile"><br /></span>
     # Semantic distance riddle
     else:
-        keyword = keywords[0].capitalize()
+        keyword = keywords[0]
+        keyword = keyword[0].upper() + keyword[1:]
         st.markdown(f"""
-        <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'><span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{keyword}</span> 
-        is closest to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
-        {help_text}
+        <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'><span style='background-color: #EEEE00; padding: 0 3px 0 0; margin: 0 3px; color: #000'>{keyword}</span> 
+        is closest to <span style='background-color: #EEEE00; padding: 0 40px; margin: 0 3px; color: #000'>?</span>.
         </div>
         """, unsafe_allow_html=True)
 
@@ -167,6 +161,8 @@ def app():
 
         if not st.session_state.get('choice', False):
             display_options(options)
+            if len(st.session_state.attempted_riddles) < 2 and not st.session_state.choice:
+                st.markdown(f"""<div class='centered' style='font-size: 20px; margin-top: 10px; margin-bottom: 10px'><a href="/How_to_play" target="_self">How does this work?</a></div>""", unsafe_allow_html=True)
 
         if st.session_state.get('choice', False):
             if len(keywords) == 3:
