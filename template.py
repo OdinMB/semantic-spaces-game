@@ -29,6 +29,10 @@ def prepare_page():
                 text-align: center;
                 width: 100%;
             }
+            .stCheckbox {
+                margin-top: -5px;
+                margin-bottom: -5px;
+            }
                 
             .fa {
                 padding: 6px;
@@ -70,6 +74,19 @@ def prepare_page():
         </style>
     """, unsafe_allow_html=True)
 
+    # Ensure the necessary keys exist in st.session_state for the filter checkboxes
+    for tag in ["filter_weird", "filter_bias", "filter_satirical"]:
+        if tag not in st.session_state:
+            st.session_state[tag] = True  # Checkboxes checked by default
+
+    # Render checkboxes and bind them to the st.session_state variables
+    st.sidebar.markdown("**Themes**")
+    st.sidebar.checkbox("Weird jumps", value=True, key='filter_weird')
+    st.sidebar.checkbox("Biases & stereotypes", value=True, key='filter_bias')
+    st.sidebar.checkbox("Satire", value=True, key='filter_satirical')
+
+    # st.markdown("<hr>", unsafe_allow_html=True)
+
     # https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_social_media_buttons
     # <a href="https://plus.google.com/share?url=https%3A%2F%2Fsemantics.fun" class="fa fa-google" style="color: white"></a>
     # <a href="#" class="fa fa-snapchat-ghost" style="color: white"></a>
@@ -85,5 +102,5 @@ def prepare_page():
     """, unsafe_allow_html=True)
 
     st.sidebar.info("No tracking, no ads.")
-    st.sidebar.info("'Semantic Spaces' by Odin Mühlenbein is published under a [CC-BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).")
     st.sidebar.info("""Want to improve the game? Add puzzles? Visit [GitHub](https://github.com/OdinMB/semantic-spaces-game).""")
+    st.sidebar.info("'Semantic Spaces' by Odin Mühlenbein is published under a [CC-BY 4.0 license](https://creativecommons.org/licenses/by/4.0/).")

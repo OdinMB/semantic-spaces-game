@@ -37,28 +37,31 @@ def choose_riddle(riddles_data):
     # First, filter out riddles that have been attempted
     unattempted_riddles = [r for r in riddles_data if r['id'] not in st.session_state.attempted_riddles]
     
-    # If fewer than two riddles have been attempted, further filter for "intro" riddles
+    # The first two riddles are a tutorial
     if len(st.session_state.attempted_riddles) < 2:
-        intro_riddles = [r for r in unattempted_riddles if 'intro' in r['tags']]
-        # Use intro riddles if available, otherwise fall back to any unattempted riddle
-        riddles_to_choose_from = intro_riddles if intro_riddles else unattempted_riddles
+        filtered_riddles = [r for r in unattempted_riddles if 'intro' in r['tags']]
+    # Later riddles are filtered based on the user's preferences
     else:
-        riddles_to_choose_from = unattempted_riddles
+        selected_tags = [tag for tag, checked in [('weird', st.session_state.filter_weird), 
+                                                ('bias', st.session_state.filter_bias), 
+                                                ('satirical', st.session_state.filter_satirical)] if checked]
+        filtered_riddles = [r for r in unattempted_riddles if any(tag in r['tags'] for tag in selected_tags)]
 
-    # Choose a riddle from the filtered list
-    if riddles_to_choose_from:
-        chosen_riddle = random.choice(riddles_to_choose_from)
-        # Update session state with chosen riddle data
+    if filtered_riddles:
+        chosen_riddle = random.choice(filtered_riddles)
         st.session_state.riddle = chosen_riddle
         st.session_state.choice = False
+        st.rerun()
     else:
-        # If there are no riddles left to choose from, reset and show a warning
-        st.warning("You've attempted all available puzzles! Resetting...")
-        st.session_state.attempted_riddles = []
-        choose_riddle(riddles_data)
-        return
-
-    st.rerun()
+        if st.session_state.reset_warning:
+            st.session_state.reset_warning = False
+            st.session_state.attempted_riddles = []
+            reset_aiscore()
+            choose_riddle(riddles_data)
+        else:
+            st.warning("You've attempted all available puzzles with the current filters! Click 'Next puzzle' to reset and try again.")
+            st.session_state.reset_warning = True
+    
 
 def display_riddle(keywords):
     help_text = ""
@@ -114,7 +117,6 @@ def display_options(options):
 def reset_aiscore():
     st.session_state.aiscore_relalignment = 0
     st.session_state.aiscore_n = 0
-    st.rerun()
 
 def adjust_ai_score(sorted_options, target_vector, player_choice):
     closest_dist = sorted_options[0][1]
@@ -132,11 +134,11 @@ def app():
     )
     prepare_page()
 
-    # Ensure 'attempted_riddles' is initialized in the session state
+    # Ensure session states are available
     if 'attempted_riddles' not in st.session_state:
         st.session_state.attempted_riddles = []
-
-    # counters for calculating the "AI alignment score"
+    if 'reset_warning' not in st.session_state:
+        st.session_state.reset_warning = False
     if 'aiscore_relalignment' not in st.session_state:
         st.session_state.aiscore_relalignment = 0
         st.session_state.aiscore_n = 0
@@ -157,46 +159,47 @@ def app():
         if st.button("Next puzzle", type="primary"):
             choose_riddle(riddles_data)
 
-    display_riddle(keywords)
+    if not st.session_state.reset_warning:
+        display_riddle(keywords)
 
-    if not st.session_state.get('choice', False):
-        display_options(options)
+        if not st.session_state.get('choice', False):
+            display_options(options)
 
-    if st.session_state.get('choice', False):
-        if len(keywords) == 3:
-            target_vector = get_embedding(keywords[2]) + get_embedding(keywords[1]) - get_embedding(keywords[0])
-        else:
-            target_vector = get_embedding(keywords[0])
-        distances = [(option, calculate_distance(target_vector, get_embedding(option))) for option in options]
-        sorted_options = sorted(distances, key=lambda x: x[1])
-        
-        # Adjust the AI alignment score
-        adjust_ai_score(sorted_options, target_vector, st.session_state.choice)
+        if st.session_state.get('choice', False):
+            if len(keywords) == 3:
+                target_vector = get_embedding(keywords[2]) + get_embedding(keywords[1]) - get_embedding(keywords[0])
+            else:
+                target_vector = get_embedding(keywords[0])
+            distances = [(option, calculate_distance(target_vector, get_embedding(option))) for option in options]
+            sorted_options = sorted(distances, key=lambda x: x[1])
+            
+            # Adjust the AI alignment score
+            adjust_ai_score(sorted_options, target_vector, st.session_state.choice)
 
-        # Show the AI response as a target cirlce
-        visualize_target_circle(sorted_options, st.session_state.choice)
+            # Show the AI response as a target cirlce
+            visualize_target_circle(sorted_options, st.session_state.choice)
 
-        # if st.button("Next puzzle"):
-            # choose_riddle(riddles_data)
+            # if st.button("Next puzzle"):
+                # choose_riddle(riddles_data)
 
-        # If in riddle creation mode: display the options with cosine distances
-        if file_name == "riddles_wip":
-            st.markdown("### Result")
-            for term, dist in sorted_options:
-                if term == st.session_state.choice:
-                    st.markdown(f"**{term} (distance: {dist:.2f})** :star:")  # Highlight player's choice
-                else:
-                    st.markdown(f"{term} (distance: {dist:.2f})")
+            # If in riddle creation mode: display the options with cosine distances
+            if file_name == "riddles_wip":
+                st.markdown("### Result")
+                for term, dist in sorted_options:
+                    if term == st.session_state.choice:
+                        st.markdown(f"**{term} (distance: {dist:.2f})** :star:")  # Highlight player's choice
+                    else:
+                        st.markdown(f"{term} (distance: {dist:.2f})")
 
-        # Embeddings visualization in 2D map
-        # fig = visualize_embeddings(get_embedding, [word1, word2, word3], options, st.session_state.choice, target_vector, 2)
-        # st.pyplot(fig)
+            # Embeddings visualization in 2D map
+            # fig = visualize_embeddings(get_embedding, [word1, word2, word3], options, st.session_state.choice, target_vector, 2)
+            # st.pyplot(fig)
 
-    # Display the AI alignment score after the player has made a choice
-    if st.session_state.aiscore_n > 0 and st.session_state.choice:
-        ai_alignment_score = st.session_state.aiscore_relalignment / st.session_state.aiscore_n
-        puzzle_text = "puzzles" if st.session_state.aiscore_n > 1 else "puzzle"
-        st.markdown(f"<div class='centered' style='margin-top: -30px'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} {puzzle_text}).</div>", unsafe_allow_html=True)
+            # Display the AI alignment score after the player has made a choice
+            if st.session_state.aiscore_n > 0:
+                ai_alignment_score = st.session_state.aiscore_relalignment / st.session_state.aiscore_n
+                puzzle_text = "puzzles" if st.session_state.aiscore_n > 1 else "puzzle"
+                st.markdown(f"<div class='centered' style='margin-top: -30px'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} {puzzle_text}).</div>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
     app()

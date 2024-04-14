@@ -24,7 +24,7 @@
         "panther",
         "oak tree"
       ],
-      "tags": ["normal"]
+      "tags": ["weird"]
     },
     {
       "id": 3,
@@ -37,7 +37,7 @@
         "bouncy castle blowout",
         "firework fiasco"
       ],
-      "tags": ["normal"]
+      "tags": ["weird"]
     },
     {
       "id": 4,
@@ -63,7 +63,7 @@
         "dragon",
         "nymph"
       ],
-      "tags": ["normal"]
+      "tags": ["weird"]
     },
     {
       "id": 6,
@@ -141,13 +141,13 @@
         "peace",
         "comfort"
       ],
-      "tags": ["normal"]
+      "tags": ["weird"]
     },
     {
       "id": 12,
       "keywords": ["city", "forest", "fork"],
       "options": ["branch", "twig", "flower", "mushroom", "petal", "stone"],
-      "tags": ["normal"]
+      "tags": ["weird"]
     },
     {
       "id": 13,
@@ -177,7 +177,7 @@
         "flourishing relationship",
         "political uprising"
       ],
-      "tags": ["normal"]
+      "tags": ["intro"]
     },
     {
       "id": 15,
