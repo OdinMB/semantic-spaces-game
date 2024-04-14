@@ -61,16 +61,22 @@ def choose_riddle(riddles_data):
     st.rerun()
 
 def display_riddle(keywords):
+    help_text = ""
+    if len(st.session_state.attempted_riddles) < 2 and not st.session_state.choice:
+        help_text = f""" <a href="/How_to_play" target="_self">How does this work?</a>
+        """
+    
     # Semantic path riddle
     if len(keywords) == 3:
         word1, word2, word3 = keywords
         word1 = word1.capitalize()
         st.markdown(f"""
         <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'>
-            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> to 
-            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> <span style='margin-left: 15px; margin-right: 15px;'>is like</span>
-            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> to 
+            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word1}</span> is to 
+            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{word2}</span> <span style='margin-left: 15px; margin-right: 15px;'>as</span>
+            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>{word3}</span> is to 
             <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
+        {help_text}
         </div>
         """, unsafe_allow_html=True)
         # <span class="hide-on-mobile"><br /></span>
@@ -80,6 +86,7 @@ def display_riddle(keywords):
         st.markdown(f"""
         <div style='font-size: 20px; margin-top: 10px; margin-bottom: 30px'><span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>{keyword}</span> 
         is closest to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.
+        {help_text}
         </div>
         """, unsafe_allow_html=True)
 
@@ -112,7 +119,7 @@ def reset_aiscore():
 def adjust_ai_score(sorted_options, target_vector, player_choice):
     closest_dist = sorted_options[0][1]
     furthest_dist = sorted_options[-1][1]
-    choice_dist = calculate_distance(target_vector, get_embedding(st.session_state.choice))
+    choice_dist = calculate_distance(target_vector, get_embedding(player_choice))
     rel_alignment = 1 - (choice_dist - closest_dist) / (furthest_dist - closest_dist)
     st.session_state.aiscore_relalignment += rel_alignment
     st.session_state.aiscore_n += 1
@@ -185,8 +192,8 @@ def app():
         # fig = visualize_embeddings(get_embedding, [word1, word2, word3], options, st.session_state.choice, target_vector, 2)
         # st.pyplot(fig)
 
-    # Display the AI alignment score
-    if st.session_state.aiscore_n > 0:
+    # Display the AI alignment score after the player has made a choice
+    if st.session_state.aiscore_n > 0 and st.session_state.choice:
         ai_alignment_score = st.session_state.aiscore_relalignment / st.session_state.aiscore_n
         puzzle_text = "puzzles" if st.session_state.aiscore_n > 1 else "puzzle"
         st.markdown(f"<div class='centered'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} {puzzle_text}).</div>", unsafe_allow_html=True)

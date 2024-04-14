@@ -13,15 +13,30 @@ with cent_co:
     st.markdown("<h1 style='text-align: center'>How to play</h1>", unsafe_allow_html=True)
 
 st.markdown("""\
-<p style='font-size: 20px;'>Semantic distance measures how closely related two terms are in meaning — like how <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>coffee</span> naturally pairs with <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>morning</span>, or <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>stars</span> with <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>night</span>.</p>
 
-<p style='font-size: 20px;'>There's also direction. Which in the case of meaning can go through a lot of different dimensions. 
-For instance, we can think of the semantic path from <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>baron</span> to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>king</span> as moving through a nobility dimension, and that from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> to <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> as moving through a temperature and state-of-matter dimension.</p>
+<p style='font-size: 20px;'>Use your intuition and compare it to that of a <a href="/Learn_about_AI" target="_self">modern AI language model</a>.</p>
 
-<p style='font-size: 20px;'>Here's an example of a puzzle that the game might give you. Imagine the semantic path from <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span>. Now follow the same path but with <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> as the starting point. Where do you land? What's a colder and more solidified version of Austrians (plus whatever other semantic shifts you think are happening from water to ice)? Maybe <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Alps</span>? Or <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span>?</p>
+<hr>
+            
+<p style='font-size: 20px;'><span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>Stars</span> 
+        is closest to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.</p>
+                        
+<p style='font-size: 20px;'>This is a puzzle about semantic distance, or how closely related two terms are in meaning. <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>Stars</span> naturally pairs with <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>moon</span> (because the two are often seen together) and <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>sun</span> (because the sun is a star). It's a bit further away from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>universe</span>.</p>
 
-<p style='font-size: 20px;'>Use your intuition and then compare your results with those of a <a href="/Learn_about_AI" target="_self">modern AI language model</a>.</p>
+<hr>            
+
+<p style='font-size: 20px;'>
+            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>Water</span> is to 
+            <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> <span style='margin-left: 15px; margin-right: 15px;'>as</span>
+            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> is to 
+            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.</p>
+            
+<p style='font-size: 20px;'>This is a puzzle about semantic pathways. 
+We can think of the semantic path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> to <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> as moving through a temperature and state-of-matter dimension. We can now follow the same path but with <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> as the starting point. Where do we land? What's a colder and more solidified version of Austrians (plus whatever other semantic shifts you think are happening from water to ice)? The AI thinks that it's <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span>!</p>
 """, unsafe_allow_html=True)
+
+if st.button("Play", type="primary"):
+    st.redirect("/")
 
 # <p style='font-size: 20px;'>Before you get too excited: <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span> is not exactly where you arrive after applying the path from <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> to <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span>. It is just the semantically closest out of the six options that the game offers you for this puzzle.</p>
 # <p style='font-size: 20px;'>Similarly for semantic distances. Out of the six options, <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>a man's job</span> is closest to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>lawyer</span>, while <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>a woman's job</span> is closest to <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>nurse</span>. (That's called bias.)
