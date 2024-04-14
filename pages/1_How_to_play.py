@@ -31,8 +31,8 @@ st.markdown("""\
             <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> is to 
             <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.</p>
             
-<p style='font-size: 20px;'>This is a puzzle about semantic pathways. 
-We can think of the semantic path from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> to <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> as moving through a temperature and state-of-matter dimension. We can now follow the same path but with <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> as the starting point. Where do we land? What's a colder and more solidified version of Austrians (plus whatever other semantic shifts you think are happening from water to ice)? The AI thinks that it's <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span>!</p>
+<p style='font-size: 20px;'>This is a puzzle about semantic pathways. Pathways often go through several dimensions.
+The path from <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> moves through a temperature and a state-of-matter dimension. What's a colder and more solidified version of <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> (plus whatever other semantic shifts you think are happening from water to ice)? The AI thinks that the closest option is <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span>!</p>
 """, unsafe_allow_html=True)
 
 if st.button("Play", type="primary"):
