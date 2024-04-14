@@ -196,7 +196,7 @@ def app():
     if st.session_state.aiscore_n > 0 and st.session_state.choice:
         ai_alignment_score = st.session_state.aiscore_relalignment / st.session_state.aiscore_n
         puzzle_text = "puzzles" if st.session_state.aiscore_n > 1 else "puzzle"
-        st.markdown(f"<div class='centered'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} {puzzle_text}).</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='centered' style='margin-top: -30px'>Your intuition is {round(ai_alignment_score*100)}% aligned with AI ({st.session_state.aiscore_n} {puzzle_text}).</div>", unsafe_allow_html=True)
 
 if __name__ == '__main__':
     app()
