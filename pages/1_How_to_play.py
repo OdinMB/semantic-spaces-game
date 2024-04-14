@@ -9,7 +9,7 @@ prepare_page()
 
 left_co, cent_co,last_co = st.columns([1, 3, 1])
 with cent_co:
-    st.image("img/labyrinth.jpg")
+    # st.image("img/labyrinth.jpg")
     st.markdown("<h1 style='text-align: center'>How to play</h1>", unsafe_allow_html=True)
 
 st.markdown("""\
@@ -36,7 +36,7 @@ We can think of the semantic path from <span style='background-color: #DDDD00; p
 """, unsafe_allow_html=True)
 
 if st.button("Play", type="primary"):
-    st.redirect("/")
+    st.switch_page("Game.py")
 
 # <p style='font-size: 20px;'>Before you get too excited: <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span> is not exactly where you arrive after applying the path from <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> to <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span>. It is just the semantically closest out of the six options that the game offers you for this puzzle.</p>
 # <p style='font-size: 20px;'>Similarly for semantic distances. Out of the six options, <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>a man's job</span> is closest to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>lawyer</span>, while <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>a woman's job</span> is closest to <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>nurse</span>. (That's called bias.)
