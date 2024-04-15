@@ -63,7 +63,12 @@ def choose_riddle(riddles_data):
             reset_aiscore()
             choose_riddle(riddles_data)
         else:
-            st.warning("You've attempted all available puzzles with the current filters. Click 'Next puzzle' to reset and try again.")
+            st.success("You've played all available puzzles with the current filters. Click 'Next puzzle' to reset and try again.")
+            st.link_button("Give feedback", url="https://z3y0hxrh.forms.app/semantic-spaces", type="primary", use_container_width=True)
+            # st.info("""
+            #     If you have any feedback or suggestions, please let us know by filling out the 
+            #     [feedback form](https://z3y0hxrh.forms.app/semantic-spaces).
+            # """)
             st.session_state.reset_warning = True
 
 def display_tags(tags=[]):
