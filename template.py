@@ -102,14 +102,14 @@ def prepare_page():
     if not st.session_state.initial_filters_set:
         # Ensure the necessary keys exist in st.session_state for the filter checkboxes
         for tag_id, tag in tag_data.items():
-            st.session_state[f"filter_{tag["display"]}"] = get_checkbox_initial_state(tag_id)
+            st.session_state[f"filter_{tag_id}"] = get_checkbox_initial_state(tag_id)
         st.session_state.initial_filters_set = True
 
     # Render checkboxes and bind them to the st.session_state variables
     st.sidebar.markdown("**Themes**")
     for tag_id, tag in tag_data.items():
         if tag.get("menu", True):
-            st.sidebar.checkbox(tag["display"], key=f"filter_{tag["display"]}", value=st.session_state[f"filter_{tag["display"]}"])
+            st.sidebar.checkbox(tag["display"], key=f"filter_{tag_id}", value=st.session_state[f"filter_{tag_id}"])
 
     # st.markdown("<hr>", unsafe_allow_html=True)
 
