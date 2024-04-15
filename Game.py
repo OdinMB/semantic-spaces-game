@@ -83,8 +83,6 @@ def display_tags(tags=[]):
             st.markdown(f"<div style='display: flex; flex-wrap: wrap; gap: 5px;'>{tags_html}</div>", unsafe_allow_html=True)
 
 def display_riddle(keywords, tags=[]):
-    display_tags(tags)
-
     # Semantic path riddle
     if len(keywords) == 3:
         word1, word2, word3 = keywords
@@ -175,11 +173,17 @@ def app():
         if st.button("Next puzzle", type="primary"):
             choose_riddle(riddles_data)
 
-    if len(st.session_state.attempted_riddles) == 2:
-        st.markdown("<div class='centered'>Open the menu to choose which types of puzzles you get (top left).</div>", unsafe_allow_html=True)
+    # Display the on the second puzzle
+    if len(st.session_state.attempted_riddles) == 1 and not st.session_state.choice:
+        st.info("Open the menu to choose which types of puzzles you get (top left)")
 
     # Exceptions: message for the player and selecting themes after the 2nd puzzle
     if not st.session_state.reset_warning:
+
+        # don't show the theme tags on the results page
+        if not st.session_state.choice:
+            display_tags(tags)
+
         display_riddle(keywords, tags)
 
         if not st.session_state.get('choice', False):

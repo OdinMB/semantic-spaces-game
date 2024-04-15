@@ -26,6 +26,11 @@ def set_styles():
                     display: none;
                 }
             }
+            @media screen and (min-width: 768px) {
+                .hide-on-large_screen {
+                    display: none;
+                }
+            }
             .centered {
                 text-align: center;
                 width: 100%;
