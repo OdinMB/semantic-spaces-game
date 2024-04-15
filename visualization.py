@@ -12,17 +12,17 @@ def visualize_target_circle(options_distances, chosen_option):
     max_distance = max(dist for _, dist in options_distances if dist > closest_dist)
 
     # Use pre-defined angles assuming 6 options for better text placement
-    angles = [0, 110, 145, 240, 310]
-    # angle_increment = 360 / (len(options_distances) - 1)
+    angles = [0, 115, 145, 240, 295]
+    angle_increment = 360 / (len(options_distances) - 1)
 
     for i, (option_label, dist) in enumerate(options_distances):
-        # angle = i * angle_increment
+        angle = i * angle_increment
         # Adjusting angle to start from 0 degrees to avoid text overlap
         if i > 0:
-            angle = angles[i - 1]
-            # angle -= angle_increment
-        else:
-            angle = 0
+            if len(options_distances) == 6:
+                angle = angles[i - 1]
+            else:
+                angle -= angle_increment
         scaled_dist = (dist - closest_dist) / (max_distance - closest_dist) * 100 if max_distance > closest_dist else 0
 
         series_data.append({

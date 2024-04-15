@@ -228,9 +228,9 @@ def app():
                 st.markdown("### Result")
                 for term, dist in sorted_options:
                     if term == st.session_state.choice:
-                        st.markdown(f"**{term} (distance: {dist:.2f})** :star:")  # Highlight player's choice
+                        st.markdown(f"**{term} (distance: {dist:.3f})** :star:")  # Highlight player's choice
                     else:
-                        st.markdown(f"{term} (distance: {dist:.2f})")
+                        st.markdown(f"{term} (distance: {dist:.3f})")
 
 
 if __name__ == '__main__':

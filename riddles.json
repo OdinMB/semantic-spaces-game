@@ -234,7 +234,7 @@
         "mother + mother + son",
         "father + mother + mother's partner + son",
         "mother + son",
-        "father + daughter + daughter"
+        "father + daughter"
       ],
       "tags": ["bias"]
     }
