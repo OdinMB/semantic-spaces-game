@@ -178,8 +178,8 @@ def app():
         if st.button("Next puzzle", type="primary"):
             choose_riddle(riddles_data)
 
-    # Display the on the second puzzle
-    if len(st.session_state.attempted_riddles) == 1 and not st.session_state.choice:
+    # Display a note about choosing puzzle themes with the third puzzle
+    if len(st.session_state.attempted_riddles) == 2 and not st.session_state.choice:
         st.info("Open the menu to choose which types of puzzles you get (top left)")
 
     # Exceptions: message for the player and selecting themes after the 2nd puzzle
