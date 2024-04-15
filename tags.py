@@ -1,5 +1,9 @@
 def get_tag_data():
     tag_data = {
+        "intro": {
+            "display": "Tutorial",
+            "menu": False
+        },
         "satirical": {
             "display": "Satire"
         },

@@ -108,7 +108,8 @@ def prepare_page():
     # Render checkboxes and bind them to the st.session_state variables
     st.sidebar.markdown("**Themes**")
     for tag_id, tag in tag_data.items():
-        st.sidebar.checkbox(tag["display"], key=f"filter_{tag["display"]}", value=st.session_state[f"filter_{tag["display"]}"])
+        if tag.get("menu", True):
+            st.sidebar.checkbox(tag["display"], key=f"filter_{tag["display"]}", value=st.session_state[f"filter_{tag["display"]}"])
 
     # st.markdown("<hr>", unsafe_allow_html=True)
 
