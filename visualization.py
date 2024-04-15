@@ -12,7 +12,7 @@ def visualize_target_circle(options_distances, chosen_option):
     max_distance = max(dist for _, dist in options_distances if dist > closest_dist)
 
     # Use pre-defined angles assuming 6 options for better text placement
-    angles = [0, 72, 135, 240, 310]
+    angles = [0, 72, 135, 240, 300]
     # angle_increment = 360 / (len(options_distances) - 1)
 
     for i, (option_label, dist) in enumerate(options_distances):
