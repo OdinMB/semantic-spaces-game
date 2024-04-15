@@ -109,7 +109,7 @@ def prepare_page():
     st.sidebar.markdown("**Themes**")
     for tag_id, tag in tag_data.items():
         if tag.get("menu", True):
-            st.sidebar.checkbox(tag["display"], key=f"filter_{tag_id}", value=st.session_state[f"filter_{tag_id}"])
+            st.sidebar.checkbox(tag["display"], key=f"filter_{tag_id}", value=st.session_state[f"filter_{tag_id}"], help=tag.get("description", None))
 
     # st.markdown("<hr>", unsafe_allow_html=True)
 

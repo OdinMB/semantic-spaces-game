@@ -6,10 +6,10 @@ def get_tag_data():
         },
         "satirical": {
             "display": "Satire",
-            "description": "We already knew that 'bee' is to 'mosquito' as 'teacher' is to 'lobbyist'. It's more fun if it's confirmed by AI, though."
+            "description": "We already knew that fast food empires herald civilisational decline. It's fun to have it confirmed by AI, though."
         },
         "weird": {
-            "display": "Daring jumps",
+            "display": "Daring connections",
             "description": "Apply levels of nobility to animals and superhero relationships to concepts of happiness."
         },
         "bias": {

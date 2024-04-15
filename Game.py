@@ -65,7 +65,7 @@ def choose_riddle(riddles_data):
         else:
             st.warning("You've attempted all available puzzles with the current filters. Click 'Next puzzle' to reset and try again.")
             st.session_state.reset_warning = True
-    
+
 def display_tags(tags=[]):
     if tags:
         tags_data = get_tag_data()
@@ -175,6 +175,10 @@ def app():
         if st.button("Next puzzle", type="primary"):
             choose_riddle(riddles_data)
 
+    if len(st.session_state.attempted_riddles) == 2:
+        st.markdown("<div class='centered'>Open the menu to choose which types of puzzles you get (top left).</div>", unsafe_allow_html=True)
+
+    # Exceptions: message for the player and selecting themes after the 2nd puzzle
     if not st.session_state.reset_warning:
         display_riddle(keywords, tags)
 
