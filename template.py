@@ -1,4 +1,5 @@
 import streamlit as st
+from tags import get_tag_data
 
 def set_styles():
     st.markdown("""
@@ -97,18 +98,17 @@ def prepare_page():
     if 'initial_filters_set' not in st.session_state:
         st.session_state.initial_filters_set = False
 
+    tag_data = get_tag_data()
     if not st.session_state.initial_filters_set:
         # Ensure the necessary keys exist in st.session_state for the filter checkboxes
-        st.session_state['filter_satirical'] = get_checkbox_initial_state('satirical')
-        st.session_state['filter_weird'] = get_checkbox_initial_state('weird')
-        st.session_state['filter_bias'] = get_checkbox_initial_state('bias')
+        for tag_id, tag in tag_data.items():
+            st.session_state[f"filter_{tag["display"]}"] = get_checkbox_initial_state(tag_id)
         st.session_state.initial_filters_set = True
 
     # Render checkboxes and bind them to the st.session_state variables
     st.sidebar.markdown("**Themes**")
-    st.sidebar.checkbox("Satire", key='filter_satirical', value=st.session_state.filter_satirical)
-    st.sidebar.checkbox("Weird jumps", key='filter_weird', value=st.session_state.filter_weird)
-    st.sidebar.checkbox("Biases", key='filter_bias', value=st.session_state.filter_bias)
+    for tag_id, tag in tag_data.items():
+        st.sidebar.checkbox(tag["display"], key=f"filter_{tag["display"]}", value=st.session_state[f"filter_{tag["display"]}"])
 
     # st.markdown("<hr>", unsafe_allow_html=True)
 

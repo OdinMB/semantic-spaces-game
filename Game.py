@@ -6,6 +6,7 @@ from scipy.spatial.distance import cdist
 from visualization import visualize_embeddings, visualize_target_circle
 from config import get_file_name
 from template import prepare_page
+from tags import get_tag_data
 from create_embeddings_openai import generate_npy
 # from modify_index_html import check_index_html
 
@@ -65,8 +66,25 @@ def choose_riddle(riddles_data):
             st.warning("You've attempted all available puzzles with the current filters. Click 'Next puzzle' to reset and try again.")
             st.session_state.reset_warning = True
     
+def display_tags(tags=[]):
+    if tags:
+        tags_data = get_tag_data()
+        # Use a container to hold all tags
+        with st.container():
+            # Create a raw HTML string for tags
+            # This uses flexbox for layout, allowing tags to wrap as needed
+            tags_html = "".join([
+                f"""<div style="margin-right: 2px; text-align: center; background-color: #F0F2F6; padding: 2px 10px; display: inline-flex; align-items: center; justify-content: center; color: #555; font-size: 12px;">{tags_data[tag]["display"]}</div>"""
+                for tag in tags
+            ])
+            
+            # Use column to display the tags HTML. The unsafe_allow_html=True allows HTML content.
+            # The use of .markdown here is a workaround to allow custom HTML content in Streamlit.
+            st.markdown(f"<div style='display: flex; flex-wrap: wrap; gap: 5px;'>{tags_html}</div>", unsafe_allow_html=True)
 
-def display_riddle(keywords):
+def display_riddle(keywords, tags=[]):
+    display_tags(tags)
+
     # Semantic path riddle
     if len(keywords) == 3:
         word1, word2, word3 = keywords
@@ -142,13 +160,14 @@ def app():
 
     with open(f"{file_name}.json", 'r') as file:
         # Load the entire JSON data
-        json_data = json.load(file)
-        riddles_data = json_data['riddles']
+        json_riddles_data = json.load(file)
+        riddles_data = json_riddles_data['riddles']
 
     if 'riddle' not in st.session_state:
         choose_riddle(riddles_data)
     keywords = st.session_state.riddle["keywords"]
     options = st.session_state.riddle["options"]
+    tags = st.session_state.riddle["tags"]
 
     st.markdown("<h1 class='hide-on-mobile centered'>Semantic Spaces</h1>", unsafe_allow_html=True)
 
@@ -157,7 +176,7 @@ def app():
             choose_riddle(riddles_data)
 
     if not st.session_state.reset_warning:
-        display_riddle(keywords)
+        display_riddle(keywords, tags)
 
         if not st.session_state.get('choice', False):
             display_options(options)
