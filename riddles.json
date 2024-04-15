@@ -224,6 +224,19 @@
         "coffee shop out of oat milk"
       ],
       "tags": ["satirical"]
+    },
+    {
+      "id": 18,
+      "keywords": ["proper family"],
+      "options": [
+        "father + mother + son + daughter",
+        "father + father + daughter",
+        "mother + mother + son",
+        "father + mother + mother's partner + son",
+        "mother + son",
+        "father + daughter + daughter"
+      ],
+      "tags": ["bias"]
     }
   ]
 }
