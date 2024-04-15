@@ -19,7 +19,7 @@ st.markdown("""\
 <hr>
             
 <p style='font-size: 20px;'><span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>Stars</span> 
-        is closest to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.</p>
+        is closest to <span style='background-color: #EEEE00; padding: 0 40px; margin: 0 3px; color: #000'>?</span>.</p>
                         
 <p style='font-size: 20px;'>This is a puzzle about semantic distance, or how closely related two terms are in meaning. <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>Stars</span> naturally pairs with <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>moon</span> (because the two are often seen together) and <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>sun</span> (because the sun is a star). It's a bit further away from <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>universe</span>.</p>
 
@@ -29,7 +29,7 @@ st.markdown("""\
             <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>Water</span> is to 
             <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> <span style='margin-left: 15px; margin-right: 15px;'>as</span>
             <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> is to 
-            <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>_____</span>.</p>
+            <span style='background-color: #DDDD00; padding: 0 40px; margin: 0 3px; color: #000'>?</span>.</p>
             
 <p style='font-size: 20px;'>This is a puzzle about semantic pathways. Pathways often go through several dimensions.
 The path from <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>water</span> to <span style='background-color: #EEEE00; padding: 0 3px; margin: 0 3px; color: #000'>ice</span> moves through a temperature and a state-of-matter dimension. What's a colder and more solidified version of <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Austrians</span> (plus whatever other semantic shifts you think are happening from water to ice)? The AI thinks that the closest option is <span style='background-color: #DDDD00; padding: 0 3px; margin: 0 3px; color: #000'>Germans</span>!</p>
