@@ -41,6 +41,8 @@ def visualize_target_circle(options_distances, chosen_option):
                     'fontSize': '16px'
                 },
                 "allowOverlap": True,
+                "overflow": "allow",
+                "crop": False,
                 # "distance": "-5%",  # Adjusted closer to optimize space usage
                 # "backgroundColor": "white" if i == 0 else None,
                 "padding": 0,
@@ -60,7 +62,7 @@ def visualize_target_circle(options_distances, chosen_option):
         "title": {
             "floating": True,
             "useHTML": True,
-            "text": "<span style='background-color: white; padding: 10px; font-size: 24px'>AI's intuition</span>", 
+            "text": "<span style='background-color: white; padding: 10px; font-size: 24px; margin: 0px'>AI's intuition</span>", 
         },
         # "responsive": {
         #     "rules": [{
