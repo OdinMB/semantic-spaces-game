@@ -12,7 +12,7 @@ def visualize_target_circle(options_distances, chosen_option):
     max_distance = max(dist for _, dist in options_distances if dist > closest_dist)
 
     # Use pre-defined angles assuming 6 options for better text placement
-    angles = [0, 115, 145, 240, 295]
+    angles = [0, 115, 145, 240, 310]
     angle_increment = 360 / (len(options_distances) - 1)
 
     for i, (option_label, dist) in enumerate(options_distances):
@@ -41,7 +41,7 @@ def visualize_target_circle(options_distances, chosen_option):
                     'fontSize': '16px'
                 },
                 "allowOverlap": True,
-                "distance": 25,  # Adjusted closer to optimize space usage
+                # "distance": "-5%",  # Adjusted closer to optimize space usage
                 # "backgroundColor": "white" if i == 0 else None,
                 "padding": 0,
                 "zIndex": 10 if i == 0 else 6,
