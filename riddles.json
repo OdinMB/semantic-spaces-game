@@ -115,7 +115,8 @@
         "receptionist",
         "kindergarten teacher"
       ],
-      "tags": ["bias"]
+      "tags": ["bias"],
+      "group": "gender_jobs"
     },
     {
       "id": 10,
@@ -128,7 +129,8 @@
         "receptionist",
         "kindergarten teacher"
       ],
-      "tags": ["bias"]
+      "tags": ["bias"],
+      "group": "gender_jobs"
     },
     {
       "id": 11,

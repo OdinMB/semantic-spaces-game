@@ -1,4 +1,11 @@
 def get_tag_data():
+    '''
+    Returns a dictionary of tag data. Each tag is a dictionary with the following keys:
+    - display: the label that is displayed in the tag cloud
+    - (optional) description: text that is displayed as a tooltip when hovering over the tag
+    - (optional) menu: whether the tag should be displayed in the menu
+    '''
+
     tag_data = {
         "intro": {
             "display": "Tutorial",

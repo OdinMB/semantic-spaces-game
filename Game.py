@@ -7,12 +7,15 @@ from visualization import visualize_embeddings, visualize_target_circle
 from config import get_file_name
 from template import prepare_page
 from tags import get_tag_data
+from groups import get_group_data
 from create_embeddings_openai import generate_npy
 # from modify_index_html import check_index_html
 
 file_name = get_file_name()
 # Load the embeddings dictionary
 embeddings_dict = np.load(f"{file_name}.npy", allow_pickle=True).item()
+
+group_data = get_group_data()
 
 def get_embedding(term):
     term = term.strip()
@@ -34,33 +37,59 @@ def get_embedding(term):
 def calculate_distance(target_vector, option_embedding):
     return cdist(target_vector.reshape(1, -1), option_embedding.reshape(1, -1), 'cosine')[0][0]
 
+def complete_active_group():
+    remaining_riddles = set(group_data[st.session_state.active_group]["riddles"]) - set(st.session_state.attempted_riddles)
+    st.session_state.excluded_riddles.extend(list(remaining_riddles))
+    st.session_state.active_group = None
+    st.session_state.group_sequence = 0
+
+
 def choose_riddle(riddles_data):
-    # First, filter out riddles that have been attempted
-    unattempted_riddles = [r for r in riddles_data if r['id'] not in st.session_state.attempted_riddles]
-    
+    # First, filter out riddles that have been attempted or excluded
+    unattempted_riddles = [r for r in riddles_data if r['id'] not in st.session_state.attempted_riddles and r['id'] not in st.session_state.excluded_riddles]
+
+    filtered_riddles = None
+
+    # Check 1: riddle creation mode
     if file_name == "riddles_wip":
         filtered_riddles = unattempted_riddles
-    else:
-        # The first two riddles are a tutorial
-        if len(st.session_state.attempted_riddles) < 2:
-            filtered_riddles = [r for r in unattempted_riddles if 'intro' in r['tags']]
-        # Later riddles are filtered based on the user's preferences
-        else:
-            selected_tags = [tag for tag, checked in [('weird', st.session_state.filter_weird), 
-                                                    ('bias', st.session_state.filter_bias), 
-                                                    ('satirical', st.session_state.filter_satirical)] if checked]
-            filtered_riddles = [r for r in unattempted_riddles if any(tag in r['tags'] for tag in selected_tags)]
 
+    # Check 2: active group to continue
+    if not filtered_riddles and st.session_state.active_group:
+        sequence_to_continue = group_data[st.session_state.active_group].get("sequence", False) and st.session_state.group_sequence < group_data[st.session_state.active_group]["sequence"]
+        unattempted_riddles_in_group = any(r['id'] in group_data[st.session_state.active_group]["riddles"] for r in unattempted_riddles)
+        if sequence_to_continue and unattempted_riddles_in_group:
+            filtered_riddles = [r for r in unattempted_riddles if r['id'] in group_data[st.session_state.active_group]["riddles"]]
+        else:
+            complete_active_group()
+
+    # Check 3: tutorial mode
+    if not filtered_riddles and len(st.session_state.attempted_riddles) < 2:
+        filtered_riddles = [r for r in unattempted_riddles if 'intro' in r['tags']]
+    
+    # Default: select based on tags
+    if not filtered_riddles:
+        selected_tags = [tag for tag, checked in [('weird', st.session_state.filter_weird), 
+                                                ('bias', st.session_state.filter_bias), 
+                                                ('satirical', st.session_state.filter_satirical)] if checked]
+        filtered_riddles = [r for r in unattempted_riddles if any(tag in r['tags'] for tag in selected_tags)]
+
+    # If there are riddles to show, select one at random
     if filtered_riddles:
         chosen_riddle = random.choice(filtered_riddles)
         st.session_state.riddle = chosen_riddle
         st.session_state.choice = False
+        
+        # Activate the group if the chosen riddle belongs to one
+        if 'group' in chosen_riddle:
+            st.session_state.active_group = chosen_riddle['group']
+            st.session_state.group_sequence += 1
+        
         st.rerun()
+    # If there are no riddles left, show a message and reset the game
     else:
         if st.session_state.reset_warning:
-            st.session_state.reset_warning = False
-            st.session_state.attempted_riddles = []
-            reset_aiscore()
+            reset_game()
             choose_riddle(riddles_data)
         else:
             st.success("You've played all available puzzles with the current filters. Click 'Next puzzle' to reset and try again.")
@@ -71,10 +100,10 @@ def choose_riddle(riddles_data):
             # """)
             st.session_state.reset_warning = True
 
-def display_tags(tags=[]):
-    if tags:
+def display_labels(tags=[], group=""):
+    if tags or group:
         tags_data = get_tag_data()
-        # Use a container to hold all tags
+        # Use a container to hold all labels
         with st.container():
             # Create a raw HTML string for tags
             # This uses flexbox for layout, allowing tags to wrap as needed
@@ -82,7 +111,10 @@ def display_tags(tags=[]):
                 f"""<div style="margin-right: 2px; text-align: center; background-color: #F0F2F6; padding: 2px 10px; display: inline-flex; align-items: center; justify-content: center; color: #555; font-size: 12px;">{tags_data[tag]["display"]}</div>"""
                 for tag in tags
             ])
-            
+            if group:
+                group_data = get_group_data()
+                group_label = group_data[group]["label"]
+                tags_html += f"""<div style="margin-right: 2px; text-align: center; background-color: #F0F2F6; padding: 2px 10px; display: inline-flex; align-items: center; justify-content: center; color: #555; font-size: 12px;">{group_label}</div>"""
             # Use column to display the tags HTML. The unsafe_allow_html=True allows HTML content.
             # The use of .markdown here is a workaround to allow custom HTML content in Streamlit.
             st.markdown(f"<div style='display: flex; flex-wrap: wrap; gap: 5px;'>{tags_html}</div>", unsafe_allow_html=True)
@@ -132,6 +164,14 @@ def display_options(options):
                         st.session_state.attempted_riddles.append(st.session_state.riddle['id'])
                         st.rerun()
 
+def reset_game():
+    st.session_state.reset_warning = False
+    st.session_state.attempted_riddles = []
+    st.session_state.active_group = None
+    st.session_state.group_sequence = 0
+    st.session_state.excluded_riddles = []
+    reset_aiscore()
+
 def reset_aiscore():
     st.session_state.aiscore_relalignment = 0
     st.session_state.aiscore_n = 0
@@ -155,6 +195,12 @@ def app():
     # Ensure session states are available
     if 'attempted_riddles' not in st.session_state:
         st.session_state.attempted_riddles = []
+    if 'active_group' not in st.session_state:
+        st.session_state.active_group = None
+    if 'group_sequence' not in st.session_state:
+        st.session_state.group_sequence = 0
+    if 'excluded_riddles' not in st.session_state:
+        st.session_state.excluded_riddles = []
     if 'reset_warning' not in st.session_state:
         st.session_state.reset_warning = False
     if 'aiscore_relalignment' not in st.session_state:
@@ -171,6 +217,7 @@ def app():
     keywords = st.session_state.riddle["keywords"]
     options = st.session_state.riddle["options"]
     tags = st.session_state.riddle["tags"]
+    group = st.session_state.riddle.get("group", None)
 
     st.markdown("<h1 class='hide-on-mobile centered'>Semantic Spaces</h1>", unsafe_allow_html=True)
 
@@ -187,7 +234,7 @@ def app():
 
         # don't show the theme tags on the results page
         if not st.session_state.choice:
-            display_tags(tags)
+            display_labels(tags, group)
 
         display_riddle(keywords, tags)
 
