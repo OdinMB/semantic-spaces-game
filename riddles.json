@@ -239,6 +239,48 @@
         "father + daughter"
       ],
       "tags": ["bias"]
+    },
+    {
+      "id": 19,
+      "keywords": ["\"What a sweet child!\""],
+      "options": [
+        "Emily Smith",
+        "Shanice Washington",
+        "Mei Lee",
+        "Scott Smith",
+        "Tyrone Washington",
+        "Huang Lee"
+      ],
+      "tags": ["bias"],
+      "group": "race"
+    },
+    {
+      "id": 20,
+      "keywords": ["Promising future"],
+      "options": [
+        "Emily Smith",
+        "Shanice Washington",
+        "Mei Lee",
+        "Scott Smith",
+        "Tyrone Washington",
+        "Huang Lee"
+      ],
+      "tags": ["bias"],
+      "group": "race"
+    },
+    {
+      "id": 21,
+      "keywords": ["\"That's four weeks of detention for you!\""],
+      "options": [
+        "Emily Smith",
+        "Shanice Washington",
+        "Mei Lee",
+        "Scott Smith",
+        "Tyrone Washington",
+        "Huang Lee"
+      ],
+      "tags": ["bias"],
+      "group": "race"
     }
   ]
 }

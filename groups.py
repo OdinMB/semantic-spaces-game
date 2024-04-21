@@ -14,9 +14,9 @@ def get_group_data():
             "sequence": 2,
             "note": ""
         },
-        "race_attributes": {
+        "race": {
             "label": "Race",
-            "riddles": [],
+            "riddles": [19, 20, 21],
             "sequence": 3,
             "note": ""
         },
