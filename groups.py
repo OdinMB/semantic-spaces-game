@@ -20,5 +20,11 @@ def get_group_data():
             "sequence": 3,
             "note": ""
         },
+        "religion": {
+            "label": "Religion",
+            "riddles": [23, 24, 25],
+            "sequence": 3,
+            "note": ""
+        }
     }
     return group_data

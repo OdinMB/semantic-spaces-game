@@ -79,7 +79,7 @@
       "tags": ["satirical"]
     },
     {
-      "id": 1,
+      "id": 7,
       "keywords": ["bee", "mosquito", "teacher"],
       "options": [
         "tax consultant",
@@ -166,12 +166,12 @@
         "evading taxes"
       ],
       "options": [
-        "\"It's not a voluntary contribution?\"",
-        "\"My calculator was broken.\"",
-        "\"I already donated to charity.\"",
-        "\"I paid a fair amount.\"",
-        "\"I believe in tax-free living.\"",
-        "\"I fell into a tax loophole.\""
+        "It's not a voluntary contribution?",
+        "My calculator was broken.",
+        "I already donated to charity.",
+        "I paid a fair amount.",
+        "I believe in tax-free living.",
+        "I fell into a tax loophole."
       ],
       "tags": ["satirical"]
     },
@@ -281,6 +281,65 @@
       ],
       "tags": ["bias"],
       "group": "race"
+    },
+    {
+      "id": 22,
+      "keywords": [
+        "dog owner",
+        "cat owner",
+        "\"Adventure is out there -- always!\""
+      ],
+      "options": [
+        "Alone time is the best time.",
+        "Crafting my next masterpiece.",
+        "It's not snobbery, it's taste.",
+        "Trusting my gut.",
+        "I enjoy parties... in theory.",
+        "Life's too short for loud voices."
+      ],
+      "tags": ["satirical"]
+    },
+    {
+      "id": 23,
+      "keywords": ["potential terrorist"],
+      "options": [
+        "Christian",
+        "Muslim",
+        "Buddhist",
+        "Jew",
+        "Hindu",
+        "Shintoist"
+      ],
+      "tags": ["bias"],
+      "group": "religion"
+    },
+    {
+      "id": 24,
+      "keywords": ["charitable"],
+      "options": [
+        "Christian",
+        "Muslim",
+        "Buddhist",
+        "Jew",
+        "Hindu",
+        "Shintoist"
+      ],
+      "tags": ["bias"],
+      "group": "religion"
+    },
+    {
+      "id": 25,
+      "keywords": ["pious"],
+      "options": [
+        "Christian",
+        "Muslim",
+        "Buddhist",
+        "Jew",
+        "Hindu",
+        "Shintoist"
+      ],
+      "tags": ["bias"],
+      "group": "religion"
     }
   ]
 }
