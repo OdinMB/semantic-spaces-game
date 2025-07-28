@@ -6,8 +6,8 @@ def check_for_opengraph_tags(content):
     """Check if OpenGraph meta tags are present in the HTML content."""
     return '<meta property="og:' in content
 
-def modify_index_html(index_html_path, custom_title, custom_meta_tags, force=False):
-    """Modify the index.html file to include custom title and meta tags."""
+def modify_index_html(index_html_path, custom_title, custom_meta_tags, analytics_script, force=False):
+    """Modify the index.html file to include custom title, meta tags, and analytics script."""
     try:
         with open(index_html_path, 'r', encoding='utf-8') as file:
             original_content = file.read()
@@ -20,6 +20,11 @@ def modify_index_html(index_html_path, custom_title, custom_meta_tags, force=Fal
         new_content = re.sub(r'<title>.*?</title>', custom_title, original_content, flags=re.DOTALL)
         head_end_pos = new_content.find('</head>')
         modified_content = new_content[:head_end_pos] + custom_meta_tags + new_content[head_end_pos:]
+        
+        # Add analytics script before </body>
+        body_end_pos = modified_content.find('</body>')
+        if body_end_pos != -1:
+            modified_content = modified_content[:body_end_pos] + analytics_script + modified_content[body_end_pos:]
 
         with open(index_html_path, 'w', encoding='utf-8') as file:
             file.write(modified_content)
@@ -59,12 +64,18 @@ def check_index_html():
     <meta name="twitter:description" content="Is 'civilization in decline' semantically closer to 'social media influencers' or 'fast food empires'? Compare your intuition to a modern AI language model.">
     <meta name="twitter:image" content="https://github.com/OdinMB/semantic-spaces-game/blob/main/img/labyrinth.jpg?raw=true">
     """
+    
+    # Simple Analytics script
+    analytics_script = """
+    <!-- 100% privacy-first analytics -->
+    <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    """
 
     streamlit_static_path = find_streamlit_static_path()
     if streamlit_static_path:
         index_html_path = os.path.join(streamlit_static_path, 'index.html')
         if os.path.exists(index_html_path):
-            modify_index_html(index_html_path, custom_title, custom_meta_tags)
+            modify_index_html(index_html_path, custom_title, custom_meta_tags, analytics_script)
         else:
             print(f"The specified path does not exist: {index_html_path}")
     else:
